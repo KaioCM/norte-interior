@@ -30,7 +30,8 @@
     try{ return localStorage.getItem('ni-cookies'); }catch(e){ return null; }
   };
   window.norteLoadPixel = function(){
-    if(!window.NORTE_PIXEL_ID || window.norteConsent() !== 'aceito' || window.fbq) return;
+    // Opt-out: carrega por padrão; só não carrega se a pessoa recusou.
+    if(!window.NORTE_PIXEL_ID || window.norteConsent() === 'recusado' || window.fbq) return;
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -651,9 +652,9 @@ document.querySelectorAll('.js-insta').forEach(function(a){
 
 <!-- ============ AVISO DE COOKIES (LGPD) ============ -->
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
-  <p><strong>Sobre cookies.</strong> Usamos cookies para entender como as pessoas chegam até aqui e melhorar nossos anúncios. Você pode aceitar ou recusar — o site funciona igual.</p>
+  <p><strong>Sobre cookies.</strong> Uso cookies para entender como as pessoas chegam até aqui e melhorar meus anúncios. Se preferir, você pode recusar — o site funciona igual.</p>
   <div class="cookies-actions">
-    <button type="button" class="btn btn-primary" data-cookies="aceito">Aceitar</button>
+    <button type="button" class="btn btn-primary" data-cookies="aceito">Entendi</button>
     <button type="button" class="btn btn-outline" data-cookies="recusado">Recusar</button>
   </div>
 </div>
@@ -665,9 +666,16 @@ document.querySelectorAll('.js-insta').forEach(function(a){
   box.addEventListener('click', function(e){
     var b = e.target.closest('[data-cookies]');
     if(!b) return;
-    try{ localStorage.setItem('ni-cookies', b.getAttribute('data-cookies')); }catch(err){}
+    var escolha = b.getAttribute('data-cookies');
+    try{ localStorage.setItem('ni-cookies', escolha); }catch(err){}
     box.hidden = true;
-    window.norteLoadPixel();
+    if(escolha === 'recusado'){
+      // Pixel já carregado: para de enviar qualquer evento a partir daqui.
+      try{ if(window.fbq){ fbq('consent','revoke'); } }catch(err){}
+    } else {
+      try{ if(window.fbq){ fbq('consent','grant'); } }catch(err){}
+      window.norteLoadPixel();
+    }
   });
   var prefs = document.getElementById('cookie-prefs');
   if(prefs) prefs.addEventListener('click', function(e){ e.preventDefault(); box.hidden = false; });
