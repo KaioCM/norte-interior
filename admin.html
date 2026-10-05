@@ -63,6 +63,17 @@
   .lead .when{font-size:.78rem;color:var(--ink-faint)}
   .lead .side{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
   .status{font-size:.78rem;font-weight:600;padding:.25em .7em;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+  /* Temperatura do lead (pela urgência) */
+  .lead{border-left:6px solid transparent}
+  .lead.quente{border-left-color:#c67139}
+  .lead.morno{border-left-color:#e3ab7a}
+  .lead.frio{border-left-color:#c9bfae}
+  .temp{display:inline-block;font-family:var(--body);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    padding:.25em .75em;border-radius:999px;vertical-align:middle;margin-left:8px;position:relative;top:-3px}
+  .temp.quente{background:#c67139;color:#f5ead8}
+  .temp.morno{background:#f3d3b4;color:#8c491a}
+  .temp.frio{background:#e7dfd1;color:#7a6a52}
+  .pill.quente b{color:#c67139}
   .status.novo{background:#fde9cf;color:#8c491a}
   .status.contatado{background:#e7eed7;color:#4d5a2f}
   .status.agendado{background:#d8ead0;color:#3a5a2f}
@@ -133,6 +144,12 @@
     <div class="stat" id="stat"></div>
     <div class="toolbar">
       <input class="grow" id="search" type="search" placeholder="Buscar por nome...">
+      <select id="ftemp">
+        <option value="">Todas as temperaturas</option>
+        <option value="quente">Quentes (essa semana)</option>
+        <option value="morno">Mornos (este mês)</option>
+        <option value="frio">Frios (só pesquisando)</option>
+      </select>
       <select id="fstatus">
         <option value="">Todos os status</option>
         <option value="novo">Novos</option>
@@ -268,21 +285,36 @@
   document.getElementById('reload').addEventListener('click', loadLeads);
   document.getElementById('search').addEventListener('input', render);
   document.getElementById('fstatus').addEventListener('change', render);
+  document.getElementById('ftemp').addEventListener('change', render);
+
+  // Temperatura pela resposta "Quando pretende fazer?"
+  function temperatura(l){
+    if(l.quando === 'Essa semana') return { k:'quente', label:'Quente' };
+    if(l.quando === 'Este mês') return { k:'morno', label:'Morno' };
+    if(l.quando === 'Só pesquisando') return { k:'frio', label:'Frio' };
+    return { k:'', label:'' };
+  }
 
   function renderStats(){
-    var c = {novo:0,contatado:0,agendado:0,arquivado:0};
-    allLeads.forEach(function(l){ if(c[l.status]!=null) c[l.status]++; });
+    var c = {novo:0,contatado:0,agendado:0,arquivado:0}, quentesNovos = 0;
+    allLeads.forEach(function(l){
+      if(c[l.status]!=null) c[l.status]++;
+      if(temperatura(l).k === 'quente' && l.status === 'novo') quentesNovos++;
+    });
     statEl.innerHTML =
+      pill(quentesNovos,'Quentes a responder','quente') +
       pill(allLeads.length,'Total') + pill(c.novo,'Novos') +
       pill(c.contatado,'Contatados') + pill(c.agendado,'Agendados');
   }
-  function pill(n,label){ return '<div class="pill"><b>'+n+'</b><span>'+label+'</span></div>'; }
+  function pill(n,label,cls){ return '<div class="pill '+(cls||'')+'"><b>'+n+'</b><span>'+label+'</span></div>'; }
 
   function render(){
     var q = (document.getElementById('search').value||'').toLowerCase();
     var fs = document.getElementById('fstatus').value;
+    var ft = document.getElementById('ftemp').value;
     var rows = allLeads.filter(function(l){
       if(fs && l.status!==fs) return false;
+      if(ft && temperatura(l).k!==ft) return false;
       if(q && (l.nome||'').toLowerCase().indexOf(q)<0) return false;
       return true;
     });
@@ -298,9 +330,10 @@
 
   function card(l){
     var utm = [l.utm_source,l.utm_campaign].filter(Boolean).join(' · ');
-    return '<div class="lead">'+
+    var t = temperatura(l);
+    return '<div class="lead '+t.k+'">'+
       '<div class="main">'+
-        '<h3>'+esc(l.nome)+'</h3>'+
+        '<h3>'+esc(l.nome)+(t.k?'<span class="temp '+t.k+'">'+t.label+'</span>':'')+'</h3>'+
         '<div class="tags">'+
           (l.leitura?'<span class="tag leitura">'+esc(l.leitura)+'</span>':'')+
           (l.tema?'<span class="tag">'+esc(l.tema)+'</span>':'')+
