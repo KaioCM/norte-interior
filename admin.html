@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Admin · Norte Interior</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23c67139'/%3E%3Cpath%20d='M12%205C15.5%208.5%2017%2011.4%2017%2013.9%2017%2016.2%2014.8%2017.9%2012%2017.9%209.2%2017.9%207%2016.2%207%2013.9%207%2011.4%208.5%208.5%2012%205Z'%20fill='%23f5ead8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --creme:#f5ead8;--areia:#ebddc5;--tinta:#201e1d;--terracota:#c67139;
+    --terracota-escuro:#8c491a;--salvia:#7a8a5e;--barro:#402310;--salvia-clara:#f0fae1;
+    --ink-soft:#5c534a;--ink-faint:#8a8073;--line:#e0d2ba;
+    --display:"Caprasimo","Cooper Black",Georgia,serif;
+    --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--creme);color:var(--tinta);font-family:var(--body);line-height:1.6;font-size:15px}
+  a{color:var(--terracota-escuro)}
+  h1,h2{font-family:var(--display);font-weight:400;margin:0}
+  .wrap{max-width:1100px;margin-inline:auto;padding:22px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:22px}
+  .brand{display:flex;align-items:center;gap:.6em}
+  .brand svg{width:30px;height:30px}
+  .brand .n{font-family:var(--display);font-size:1.25rem}
+  .muted{color:var(--ink-faint);font-size:.85rem}
+  .btn{font-family:var(--body);font-weight:600;font-size:.92rem;padding:.6em 1.2em;border-radius:999px;border:1.5px solid transparent;cursor:pointer;background:var(--terracota);color:var(--creme);text-decoration:none;display:inline-flex;align-items:center;gap:.4em}
+  .btn:hover{background:var(--terracota-escuro)}
+  .btn.ghost{background:transparent;color:var(--terracota-escuro);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--terracota)}
+  .btn.sm{padding:.35em .8em;font-size:.82rem}
+  input,select{font-family:var(--body);font-size:1rem;padding:.6em .8em;border:1.5px solid var(--line);border-radius:12px;background:#fffdf9;color:var(--tinta)}
+  input:focus,select:focus{outline:none;border-color:var(--terracota)}
+
+  /* Login */
+  .login{max-width:420px;margin:8vh auto 0;background:var(--areia);border-radius:24px;padding:36px 30px;text-align:center}
+  .login svg.g{width:54px;height:54px;margin-bottom:14px}
+  .login h1{font-size:1.9rem;margin-bottom:.2em}
+  .login p{color:var(--ink-soft);margin:0 0 20px}
+  .login form{display:flex;flex-direction:column;gap:12px}
+  .login .msg{margin-top:14px;font-size:.9rem}
+
+  /* Toolbar */
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .toolbar .grow{flex:1;min-width:180px}
+  .stat{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .pill{background:var(--areia);border-radius:14px;padding:10px 16px}
+  .pill b{font-family:var(--display);font-size:1.3rem;display:block;line-height:1.1}
+  .pill span{font-size:.78rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.08em}
+
+  /* Lista */
+  .lead{background:var(--areia);border-radius:16px;padding:16px 18px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:start}
+  .lead .main h3{font-family:var(--display);font-size:1.3rem;margin:0 0 2px}
+  .lead .tags{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0}
+  .tag{font-size:.78rem;background:#fffdf9;border:1px solid var(--line);border-radius:999px;padding:.2em .7em;color:var(--ink-soft)}
+  .tag.leitura{background:var(--terracota);color:var(--creme);border-color:var(--terracota)}
+  .lead .when{font-size:.78rem;color:var(--ink-faint)}
+  .lead .side{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+  .status{font-size:.78rem;font-weight:600;padding:.25em .7em;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+  .status.novo{background:#fde9cf;color:#8c491a}
+  .status.contatado{background:#e7eed7;color:#4d5a2f}
+  .status.agendado{background:#d8ead0;color:#3a5a2f}
+  .status.arquivado{background:#eadfce;color:#7a6a52}
+  .actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .empty{text-align:center;color:var(--ink-faint);padding:50px 0}
+  @media(max-width:620px){
+    .lead{grid-template-columns:1fr}
+    .lead .side{align-items:flex-start}
+    .actions{justify-content:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-view" class="login" hidden>
+  <svg class="g" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#c67139"/><path d="M12 5C15.5 8.5 17 11.4 17 13.9 17 16.2 14.8 17.9 12 17.9 9.2 17.9 7 16.2 7 13.9 7 11.4 8.5 8.5 12 5Z" fill="#f5ead8"/></svg>
+  <h1>Norte Interior</h1>
+  <p>Área da Vitória — entre com seu e-mail para receber o link de acesso.</p>
+  <form id="login-form">
+    <input id="email" type="email" placeholder="seu@email.com" autocomplete="email" required>
+    <button class="btn" type="submit">Receber link de acesso</button>
+  </form>
+  <p class="msg muted" id="login-msg"></p>
+</div>
+
+<!-- App -->
+<div id="app-view" class="wrap" hidden>
+  <div class="top">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#c67139"/><path d="M12 5C15.5 8.5 17 11.4 17 13.9 17 16.2 14.8 17.9 12 17.9 9.2 17.9 7 16.2 7 13.9 7 11.4 8.5 8.5 12 5Z" fill="#f5ead8"/></svg>
+      <span class="n">Leads</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="muted" id="who"></span>
+      <button class="btn ghost sm" id="logout">Sair</button>
+    </div>
+  </div>
+
+  <div id="noaccess" class="empty" hidden>
+    <h2 style="margin-bottom:8px">Sem acesso</h2>
+    <p class="muted">Este e-mail não está autorizado a ver os leads.<br>Peça para o Kaio liberar seu e-mail.</p>
+    <button class="btn ghost sm" id="logout2" style="margin-top:12px">Trocar de conta</button>
+  </div>
+
+  <div id="leads-ui" hidden>
+    <div class="stat" id="stat"></div>
+    <div class="toolbar">
+      <input class="grow" id="search" type="search" placeholder="Buscar por nome...">
+      <select id="fstatus">
+        <option value="">Todos os status</option>
+        <option value="novo">Novos</option>
+        <option value="contatado">Contatados</option>
+        <option value="agendado">Agendados</option>
+        <option value="arquivado">Arquivados</option>
+      </select>
+      <button class="btn ghost sm" id="reload">Atualizar</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var CFG = {
+    url: 'https://zqadfktfplrbrjmepllh.supabase.co',
+    key: 'sb_publishable_u1yHVc1BdRBsbuuTZcctqQ_9G5gIBsP'
+  };
+  var sb = window.supabase.createClient(CFG.url, CFG.key);
+
+  var loginView = document.getElementById('login-view');
+  var appView   = document.getElementById('app-view');
+  var noaccess  = document.getElementById('noaccess');
+  var leadsUI   = document.getElementById('leads-ui');
+  var listEl    = document.getElementById('list');
+  var statEl    = document.getElementById('stat');
+  var whoEl     = document.getElementById('who');
+  var allLeads  = [];
+
+  function show(el){ el.hidden = false; }
+  function hide(el){ el.hidden = true; }
+
+  // ---- Auth ----
+  document.getElementById('login-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    var msg = document.getElementById('login-msg');
+    if(!email) return;
+    msg.textContent = 'Enviando...';
+    sb.auth.signInWithOtp({ email: email, options:{ emailRedirectTo: location.origin + location.pathname } })
+      .then(function(r){
+        if(r.error){ msg.textContent = 'Erro: ' + r.error.message; }
+        else { msg.textContent = 'Pronto! Confira seu e-mail e clique no link de acesso.'; }
+      });
+  });
+  function logout(){ sb.auth.signOut().then(function(){ location.reload(); }); }
+  document.getElementById('logout').addEventListener('click', logout);
+  document.getElementById('logout2').addEventListener('click', logout);
+
+  sb.auth.getSession().then(function(r){ route(r.data.session); });
+  sb.auth.onAuthStateChange(function(_e, session){ route(session); });
+
+  function route(session){
+    if(!session){ hide(appView); show(loginView); return; }
+    hide(loginView); show(appView);
+    whoEl.textContent = session.user.email;
+    // confirma se é admin via função (RLS gate)
+    sb.rpc('norte_is_admin').then(function(r){
+      if(r.data === true){ hide(noaccess); show(leadsUI); loadLeads(); }
+      else { show(noaccess); hide(leadsUI); }
+    });
+  }
+
+  // ---- Leads ----
+  function loadLeads(){
+    listEl.innerHTML = '<p class="muted">Carregando...</p>';
+    sb.from('norte_leads').select('*').order('created_at', { ascending:false })
+      .then(function(r){
+        if(r.error){ listEl.innerHTML = '<p class="muted">Erro ao carregar: '+r.error.message+'</p>'; return; }
+        allLeads = r.data || [];
+        renderStats(); render();
+      });
+  }
+  document.getElementById('reload').addEventListener('click', loadLeads);
+  document.getElementById('search').addEventListener('input', render);
+  document.getElementById('fstatus').addEventListener('change', render);
+
+  function renderStats(){
+    var c = {novo:0,contatado:0,agendado:0,arquivado:0};
+    allLeads.forEach(function(l){ if(c[l.status]!=null) c[l.status]++; });
+    statEl.innerHTML =
+      pill(allLeads.length,'Total') + pill(c.novo,'Novos') +
+      pill(c.contatado,'Contatados') + pill(c.agendado,'Agendados');
+  }
+  function pill(n,label){ return '<div class="pill"><b>'+n+'</b><span>'+label+'</span></div>'; }
+
+  function render(){
+    var q = (document.getElementById('search').value||'').toLowerCase();
+    var fs = document.getElementById('fstatus').value;
+    var rows = allLeads.filter(function(l){
+      if(fs && l.status!==fs) return false;
+      if(q && (l.nome||'').toLowerCase().indexOf(q)<0) return false;
+      return true;
+    });
+    if(!rows.length){ listEl.innerHTML = '<div class="empty">Nenhum lead por aqui ainda.</div>'; return; }
+    listEl.innerHTML = rows.map(card).join('');
+    listEl.querySelectorAll('[data-set]').forEach(function(b){
+      b.addEventListener('click', function(){ setStatus(b.getAttribute('data-id'), b.getAttribute('data-set')); });
+    });
+  }
+
+  function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+  function fmtDate(s){ try{ return new Date(s).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'2-digit',hour:'2-digit',minute:'2-digit'}); }catch(e){ return s; } }
+
+  function card(l){
+    var utm = [l.utm_source,l.utm_campaign].filter(Boolean).join(' · ');
+    return '<div class="lead">'+
+      '<div class="main">'+
+        '<h3>'+esc(l.nome)+'</h3>'+
+        '<div class="tags">'+
+          (l.leitura?'<span class="tag leitura">'+esc(l.leitura)+'</span>':'')+
+          (l.tema?'<span class="tag">'+esc(l.tema)+'</span>':'')+
+          (l.quando?'<span class="tag">'+esc(l.quando)+'</span>':'')+
+        '</div>'+
+        '<div class="when">'+fmtDate(l.created_at)+' · origem: '+esc(l.source||'-')+(utm?' · '+esc(utm):'')+'</div>'+
+      '</div>'+
+      '<div class="side">'+
+        '<span class="status '+esc(l.status)+'">'+esc(l.status)+'</span>'+
+        '<div class="actions">'+
+          btn(l,'contatado','Contatado')+
+          btn(l,'agendado','Agendado')+
+          btn(l,'arquivado','Arquivar')+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }
+  function btn(l,st,label){
+    if(l.status===st) return '';
+    return '<button class="btn ghost sm" data-set="'+st+'" data-id="'+l.id+'">'+label+'</button>';
+  }
+
+  function setStatus(id, status){
+    var patch = { status: status };
+    if(status==='agendado') patch.agendado_em = new Date().toISOString();
+    sb.from('norte_leads').update(patch).eq('id', id).then(function(r){
+      if(r.error){ alert('Erro: '+r.error.message); return; }
+      var l = allLeads.find(function(x){ return x.id===id; });
+      if(l){ l.status = status; if(patch.agendado_em) l.agendado_em = patch.agendado_em; }
+      renderStats(); render();
+    });
+  }
+})();
+</script>
+</body>
+</html>
