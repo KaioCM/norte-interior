@@ -630,6 +630,7 @@
       if(cfg.SUPABASE_URL && cfg.SUPABASE_KEY){
         fetch(cfg.SUPABASE_URL + '/rest/v1/norte_leads', {
           method:'POST',
+          keepalive:true,   // sobrevive à navegação pro WhatsApp
           headers:{
             'apikey': cfg.SUPABASE_KEY,
             'Authorization': 'Bearer ' + cfg.SUPABASE_KEY,
