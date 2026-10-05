@@ -43,6 +43,8 @@
   .login p{color:var(--ink-soft);margin:0 0 20px}
   .login form{display:flex;flex-direction:column;gap:12px}
   .login .msg{margin-top:14px;font-size:.9rem}
+  .login .msg.erro{color:#a3341f}
+  .login .link-sm{font-size:.88rem;margin-top:4px}
 
   /* Toolbar */
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
@@ -80,11 +82,31 @@
 <div id="login-view" class="login" hidden>
   <svg class="g" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#c67139"/><path d="M12 5C15.5 8.5 17 11.4 17 13.9 17 16.2 14.8 17.9 12 17.9 9.2 17.9 7 16.2 7 13.9 7 11.4 8.5 8.5 12 5Z" fill="#f5ead8"/></svg>
   <h1>Norte Interior</h1>
-  <p>Área da Vitória — entre com seu e-mail para receber o link de acesso.</p>
+  <!-- Entrar -->
   <form id="login-form">
-    <input id="email" type="email" placeholder="seu@email.com" autocomplete="email" required>
-    <button class="btn" type="submit">Receber link de acesso</button>
+    <p>Área restrita — veja os pedidos de agendamento do site.</p>
+    <input id="email" type="email" placeholder="E-mail" autocomplete="username" required>
+    <input id="senha" type="password" placeholder="Senha" autocomplete="current-password" required>
+    <button class="btn" type="submit">Entrar</button>
+    <a href="#" class="link-sm" id="ir-esqueci">Esqueci minha senha</a>
   </form>
+
+  <!-- Esqueci minha senha -->
+  <form id="esqueci-form" hidden>
+    <p>Digite seu e-mail. Você vai receber um link para criar uma senha nova.</p>
+    <input id="email-reset" type="email" placeholder="E-mail" autocomplete="username" required>
+    <button class="btn" type="submit">Enviar link</button>
+    <a href="#" class="link-sm" id="voltar-login">Voltar para o login</a>
+  </form>
+
+  <!-- Nova senha (abre pelo link do e-mail) -->
+  <form id="nova-senha-form" hidden>
+    <p>Crie sua senha nova (mínimo de 8 caracteres).</p>
+    <input id="senha-nova" type="password" placeholder="Senha nova" autocomplete="new-password" minlength="8" required>
+    <input id="senha-nova2" type="password" placeholder="Repita a senha nova" autocomplete="new-password" minlength="8" required>
+    <button class="btn" type="submit">Salvar senha</button>
+  </form>
+
   <p class="msg muted" id="login-msg"></p>
 </div>
 
@@ -131,6 +153,8 @@
     url: 'https://zqadfktfplrbrjmepllh.supabase.co',
     key: 'sb_publishable_u1yHVc1BdRBsbuuTZcctqQ_9G5gIBsP'
   };
+  // Detecta se a página abriu pelo link "Esqueci minha senha" (antes do Supabase limpar a URL)
+  var modoRecuperacao = /type=recovery/.test(location.hash + location.search);
   var sb = window.supabase.createClient(CFG.url, CFG.key);
 
   var loginView = document.getElementById('login-view');
@@ -145,28 +169,83 @@
   function show(el){ el.hidden = false; }
   function hide(el){ el.hidden = true; }
 
-  // ---- Auth ----
-  document.getElementById('login-form').addEventListener('submit', function(e){
+  // ---- Auth (e-mail + senha) ----
+  var msg = document.getElementById('login-msg');
+  var fLogin = document.getElementById('login-form');
+  var fEsqueci = document.getElementById('esqueci-form');
+  var fNova = document.getElementById('nova-senha-form');
+
+  function aviso(texto, erro){ msg.textContent = texto || ''; msg.classList.toggle('erro', !!erro); }
+  function mostrarForm(f){
+    [fLogin, fEsqueci, fNova].forEach(function(x){ x.hidden = (x !== f); });
+    aviso('');
+  }
+  function traduz(err){
+    var m = (err && err.message) || '';
+    if(/invalid login credentials/i.test(m)) return 'E-mail ou senha incorretos.';
+    if(/email not confirmed/i.test(m)) return 'E-mail ainda não confirmado.';
+    if(/password should be at least/i.test(m)) return 'A senha precisa ter pelo menos 8 caracteres.';
+    if(/same.*password|different from the old/i.test(m)) return 'Use uma senha diferente da anterior.';
+    if(/rate limit|too many/i.test(m)) return 'Muitas tentativas. Espere alguns minutos e tente de novo.';
+    return 'Não deu certo: ' + m;
+  }
+
+  fLogin.addEventListener('submit', function(e){
     e.preventDefault();
-    var email = document.getElementById('email').value.trim();
-    var msg = document.getElementById('login-msg');
-    if(!email) return;
-    msg.textContent = 'Enviando...';
-    sb.auth.signInWithOtp({ email: email, options:{ emailRedirectTo: location.origin + location.pathname } })
-      .then(function(r){
-        if(r.error){ msg.textContent = 'Erro: ' + r.error.message; }
-        else { msg.textContent = 'Pronto! Confira seu e-mail e clique no link de acesso.'; }
-      });
+    aviso('Entrando...');
+    sb.auth.signInWithPassword({
+      email: document.getElementById('email').value.trim(),
+      password: document.getElementById('senha').value
+    }).then(function(r){ if(r.error){ aviso(traduz(r.error), true); } });
   });
+
+  document.getElementById('ir-esqueci').addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('email-reset').value = document.getElementById('email').value;
+    mostrarForm(fEsqueci);
+  });
+  document.getElementById('voltar-login').addEventListener('click', function(e){
+    e.preventDefault(); mostrarForm(fLogin);
+  });
+
+  fEsqueci.addEventListener('submit', function(e){
+    e.preventDefault();
+    aviso('Enviando...');
+    sb.auth.resetPasswordForEmail(document.getElementById('email-reset').value.trim(), {
+      redirectTo: location.origin + location.pathname
+    }).then(function(r){
+      if(r.error){ aviso(traduz(r.error), true); }
+      else { aviso('Se esse e-mail tiver acesso, o link chega em alguns minutos. Confira também o spam.'); }
+    });
+  });
+
+  fNova.addEventListener('submit', function(e){
+    e.preventDefault();
+    var s1 = document.getElementById('senha-nova').value, s2 = document.getElementById('senha-nova2').value;
+    if(s1 !== s2){ aviso('As duas senhas não são iguais.', true); return; }
+    if(s1.length < 8){ aviso('A senha precisa ter pelo menos 8 caracteres.', true); return; }
+    aviso('Salvando...');
+    sb.auth.updateUser({ password: s1 }).then(function(r){
+      if(r.error){ aviso(traduz(r.error), true); return; }
+      modoRecuperacao = false;
+      history.replaceState(null, '', location.pathname);
+      sb.auth.getSession().then(function(x){ route(x.data.session); });
+    });
+  });
+
   function logout(){ sb.auth.signOut().then(function(){ location.reload(); }); }
   document.getElementById('logout').addEventListener('click', logout);
   document.getElementById('logout2').addEventListener('click', logout);
 
   sb.auth.getSession().then(function(r){ route(r.data.session); });
-  sb.auth.onAuthStateChange(function(_e, session){ route(session); });
+  sb.auth.onAuthStateChange(function(evento, session){
+    if(evento === 'PASSWORD_RECOVERY'){ modoRecuperacao = true; }
+    route(session);
+  });
 
   function route(session){
-    if(!session){ hide(appView); show(loginView); return; }
+    if(modoRecuperacao){ hide(appView); show(loginView); mostrarForm(fNova); return; }
+    if(!session){ hide(appView); show(loginView); if(fNova.hidden === false) mostrarForm(fLogin); return; }
     hide(loginView); show(appView);
     whoEl.textContent = session.user.email;
     // confirma se é admin via função (RLS gate)
