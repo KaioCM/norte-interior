@@ -3,3 +3,4 @@ norte-interior.html
 *.mov
 *.mp4
 *.png
+!assets/*.mp4
