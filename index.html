@@ -24,14 +24,21 @@
   // Meta Pixel: cole o ID aqui (ex.: '123456789012345') para ativar o rastreio de anúncios.
   window.NORTE_PIXEL_ID = '';
 </script>
-<!-- Meta Pixel -->
+<!-- Meta Pixel — só carrega com ID definido E consentimento de cookies (LGPD) -->
 <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  if(window.NORTE_PIXEL_ID){ fbq('init', window.NORTE_PIXEL_ID); fbq('track','PageView'); }
+  window.norteConsent = function(){
+    try{ return localStorage.getItem('ni-cookies'); }catch(e){ return null; }
+  };
+  window.norteLoadPixel = function(){
+    if(!window.NORTE_PIXEL_ID || window.norteConsent() !== 'aceito' || window.fbq) return;
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', window.NORTE_PIXEL_ID); fbq('track','PageView');
+  };
+  window.norteLoadPixel();
 </script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23c67139'/%3E%3Cpath%20d='M12%205C15.5%208.5%2017%2011.4%2017%2013.9%2017%2016.2%2014.8%2017.9%2012%2017.9%209.2%2017.9%207%2016.2%207%2013.9%207%2011.4%208.5%208.5%2012%205Z'%20fill='%23f5ead8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -271,6 +278,20 @@
   .modal-err{color:#a3341f;font-size:.86rem;margin:0}
   .consent{font-size:.76rem;color:var(--ink-faint);line-height:1.5;margin:0}
 
+  /* ===== Aviso de cookies ===== */
+  .cookies{position:fixed;left:20px;bottom:20px;z-index:40;max-width:400px;
+    background:var(--creme);border:1px solid var(--line);border-radius:var(--radius-sm);
+    box-shadow:0 18px 50px -20px rgba(32,30,29,.45);padding:18px 20px;
+    display:flex;flex-direction:column;gap:12px}
+  .cookies p{font-size:.88rem;color:var(--ink-soft);line-height:1.55}
+  .cookies p strong{color:var(--tinta);font-weight:600}
+  .cookies-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .cookies .btn{padding:.55em 1.2em;font-size:.88rem}
+  @media(max-width:560px){
+    .cookies{left:12px;right:12px;bottom:12px;max-width:none}
+    .cookies-actions .btn{flex:1}
+  }
+
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   }
@@ -367,7 +388,7 @@
           <span class="rotulo">15 min</span>
           <h3>Pergunta única</h3>
           <p class="desc">Formato curto e direto para uma dúvida pontual. Bom para sentir como funciona.</p>
-          <div class="price"><span class="cur">R$</span>35</div>
+          <div class="price"><span class="cur">R$</span>25</div>
           <a class="clink js-agendar" href="https://wa.me/5565992523278?text=Oi%2C%20Vit%C3%B3ria%2C%20quero%20fazer%20uma%20pergunta%20%C3%BAnica." target="_blank" rel="noopener" data-leitura="Pergunta única" data-source="card-pergunta">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
@@ -487,11 +508,37 @@
         <a href="https://instagram.com/norteinterior" target="_blank" rel="noopener">@norteinterior</a>
         <a href="#leituras">Leituras</a>
         <a href="#duvidas">Dúvidas</a>
+        <a href="#" id="cookie-prefs">Cookies</a>
       </div>
     </div>
     <p class="foot-fine">Norte Interior · Tarô com Vitória. As leituras têm caráter de reflexão, autoconhecimento e bem-estar e não substituem acompanhamento médico, psicológico, jurídico ou financeiro. Serviço destinado a maiores de 18 anos.</p>
   </div>
 </footer>
+
+<!-- ============ AVISO DE COOKIES (LGPD) ============ -->
+<div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
+  <p><strong>Sobre cookies.</strong> Usamos cookies para entender como as pessoas chegam até aqui e melhorar nossos anúncios. Você pode aceitar ou recusar — o site funciona igual.</p>
+  <div class="cookies-actions">
+    <button type="button" class="btn btn-primary" data-cookies="aceito">Aceitar</button>
+    <button type="button" class="btn btn-outline" data-cookies="recusado">Recusar</button>
+  </div>
+</div>
+<script>
+(function(){
+  var box = document.getElementById('cookies');
+  if(!box) return;
+  if(!window.norteConsent()) box.hidden = false;
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('[data-cookies]');
+    if(!b) return;
+    try{ localStorage.setItem('ni-cookies', b.getAttribute('data-cookies')); }catch(err){}
+    box.hidden = true;
+    window.norteLoadPixel();
+  });
+  var prefs = document.getElementById('cookie-prefs');
+  if(prefs) prefs.addEventListener('click', function(e){ e.preventDefault(); box.hidden = false; });
+})();
+</script>
 
 <!-- ============ MODAL DE AGENDAMENTO ============ -->
 <dialog id="agendar-modal" class="modal" aria-labelledby="modal-title">
