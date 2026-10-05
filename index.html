@@ -830,7 +830,9 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     var wa = 'https://wa.me/' + (cfg.WHATSAPP || '') + '?text=' + encodeURIComponent(texto);
     closeModal();
     var w = window.open(wa, '_blank');
-    if(!w){ location.href = wa; }
+    // Se o navegador bloquear a nova aba, abre na mesma aba — com uma folga
+    // para o evento Lead do Pixel ser enviado antes de sair da página.
+    if(!w){ setTimeout(function(){ location.href = wa; }, 600); }
   });
 })();
 </script>
