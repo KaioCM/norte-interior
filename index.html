@@ -179,6 +179,21 @@
 
   .leituras-nota{margin-top:26px;text-align:center;color:var(--ink-faint);font-size:.92rem}
 
+  /* Promo — faixa em destaque abaixo dos cartões */
+  .promo{margin-top:18px;border:1.5px solid var(--terracota);border-radius:var(--radius);
+    background:#fbf3e6;padding:24px 28px;display:grid;grid-template-columns:1fr auto;gap:14px 28px;align-items:center}
+  .promo-tag{display:inline-block;background:var(--terracota);color:var(--creme);font-weight:600;font-size:.72rem;
+    letter-spacing:.16em;text-transform:uppercase;padding:.35em .9em;border-radius:999px;margin-bottom:10px}
+  .promo h3{font-size:1.5rem;margin-bottom:.25em}
+  .promo .desc{color:var(--ink-soft);font-size:.97rem;max-width:52ch}
+  .promo-side{display:flex;align-items:center;gap:20px}
+  .promo .price{font-family:var(--display);font-size:1.7rem;color:var(--tinta)}
+  .promo .price .cur{font-family:var(--body);font-weight:600;font-size:.8rem;color:var(--ink-faint);margin-right:.35em}
+  @media(max-width:720px){
+    .promo{grid-template-columns:1fr;padding:22px}
+    .promo-side{justify-content:space-between}
+  }
+
   /* Como funciona — ritmo de três, símbolo como numerador */
   .band.salvia{background:var(--salvia-clara)}
   .passos{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
@@ -373,7 +388,7 @@
           <span class="rotulo">50 min</span>
           <h3>Leitura geral</h3>
           <p class="desc">O momento de vida como um todo: o que pede atenção e onde vale colocar energia.</p>
-          <div class="price"><span class="cur">R$</span>100</div>
+          <div class="price"><span class="cur">R$</span>60</div>
           <a class="clink js-agendar" href="https://wa.me/5565992523278?text=Oi%2C%20Vit%C3%B3ria%2C%20tenho%20interesse%20na%20leitura%20geral." target="_blank" rel="noopener" data-leitura="Leitura geral" data-source="card-geral">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
@@ -381,7 +396,7 @@
           <span class="rotulo">40 min</span>
           <h3>Por tema</h3>
           <p class="desc">Um foco escolhido por você — amor, carreira ou uma decisão — para olhar com mais profundidade.</p>
-          <div class="price"><span class="cur">R$</span>80</div>
+          <div class="price"><span class="cur">R$</span>45</div>
           <a class="clink js-agendar" href="https://wa.me/5565992523278?text=Oi%2C%20Vit%C3%B3ria%2C%20quero%20uma%20leitura%20por%20tema." target="_blank" rel="noopener" data-leitura="Por tema" data-source="card-tema">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
@@ -389,7 +404,7 @@
           <span class="rotulo">15 min</span>
           <h3>Pergunta única</h3>
           <p class="desc">Formato curto e direto para uma dúvida pontual. Bom para sentir como funciona.</p>
-          <div class="price"><span class="cur">R$</span>25</div>
+          <div class="price"><span class="cur">R$</span>15</div>
           <a class="clink js-agendar" href="https://wa.me/5565992523278?text=Oi%2C%20Vit%C3%B3ria%2C%20quero%20fazer%20uma%20pergunta%20%C3%BAnica." target="_blank" rel="noopener" data-leitura="Pergunta única" data-source="card-pergunta">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
@@ -397,11 +412,24 @@
           <span class="rotulo">Pacote</span>
           <h3>Acompanhamento</h3>
           <p class="desc">Um encontro por semana, para acompanhar um processo com continuidade ao longo do tempo.</p>
-          <div class="price"><span class="cur">R$</span>350<span class="per">/mês</span></div>
+          <div class="price"><span class="cur">R$</span>220<span class="per">/mês</span></div>
           <a class="clink js-agendar" href="https://wa.me/5565992523278?text=Oi%2C%20Vit%C3%B3ria%2C%20tenho%20interesse%20no%20acompanhamento." target="_blank" rel="noopener" data-leitura="Acompanhamento" data-source="card-acompanhamento">Conversar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
       </div>
+
+      <article class="promo">
+        <div>
+          <span class="promo-tag">Promo</span>
+          <h3>2 perguntas detalhadas</h3>
+          <p class="desc">Duas perguntas, cada uma com uma leitura mais aprofundada. Um jeito leve de ir além da pergunta única.</p>
+        </div>
+        <div class="promo-side">
+          <div class="price"><span class="cur">R$</span>20</div>
+          <a class="btn btn-primary js-agendar" href="https://wa.me/5565992523278?text=Oi%2C%20Vit%C3%B3ria%2C%20quero%20a%20promo%20de%202%20perguntas%20detalhadas." target="_blank" rel="noopener" data-leitura="2 perguntas detalhadas" data-source="promo-2-perguntas">Agendar</a>
+        </div>
+      </article>
+
       <p class="leituras-nota">Agendamento pelo WhatsApp · atendimento online e reservado</p>
     </div>
   </section>
@@ -562,6 +590,7 @@
         <button type="button" class="chip" data-value="Leitura geral">Leitura geral</button>
         <button type="button" class="chip" data-value="Por tema">Por tema</button>
         <button type="button" class="chip" data-value="Pergunta única">Pergunta única</button>
+        <button type="button" class="chip" data-value="2 perguntas detalhadas">2 perguntas (promo)</button>
         <button type="button" class="chip" data-value="Acompanhamento">Acompanhamento</button>
       </div>
     </fieldset>
