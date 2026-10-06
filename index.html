@@ -345,6 +345,11 @@
   .field span em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-faint)}
   .field input.invalido{border-color:#a3341f}
   @media(max-width:480px){ .contato-grid{grid-template-columns:1fr} }
+  .modal-ok{text-align:left}
+  .modal-ok .btn{width:100%}
+  .ok-nota{font-size:.88rem;color:var(--ink-soft);line-height:1.5;margin:0}
+  .ok-fechar{background:none;border:none;font-family:var(--body);font-size:.9rem;color:var(--ink-faint);cursor:pointer;padding:4px;align-self:center;text-decoration:underline;text-underline-offset:3px}
+  .ok-fechar:hover{color:var(--terracota-escuro)}
 
   /* ===== Aviso de cookies ===== */
   .cookies{position:fixed;left:20px;bottom:20px;z-index:40;max-width:400px;
@@ -753,6 +758,22 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     </button>
     <p class="consent">Ao continuar, você concorda que eu entre em contato pelo WhatsApp (ou e-mail, se informar). Esses dados também são usados de forma criptografada para medir meus anúncios — se recusou cookies, não são enviados. Sem spam.</p>
   </form>
+
+  <!-- Confirmação depois do envio: a pessoa nunca fica sem saída -->
+  <div class="modal-card modal-ok" id="agendar-ok" hidden>
+    <button type="button" class="modal-close" data-close aria-label="Fechar">&times;</button>
+    <div class="modal-head">
+      <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
+      <h2 id="ok-titulo">Pronto.</h2>
+      <p>Sua mensagem já está escrita no meu WhatsApp. É só tocar em <strong>enviar</strong>.</p>
+    </div>
+    <a class="btn btn-primary" id="ok-whats" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
+      Abrir WhatsApp
+    </a>
+    <p class="ok-nota">Se o WhatsApp não abriu, ou se preferir esperar, eu te chamo no <strong id="ok-numero"></strong> assim que puder.</p>
+    <button type="button" class="ok-fechar" data-close>Fechar</button>
+  </div>
 </dialog>
 
 <script>
@@ -766,6 +787,7 @@ document.querySelectorAll('.js-insta').forEach(function(a){
   var hpEl = document.getElementById('f-hp');
   var whatsEl = document.getElementById('f-whats');
   var emailEl = document.getElementById('f-email');
+  var okEl = document.getElementById('agendar-ok');
   var currentSource = 'site';
 
   // WhatsApp: só dígitos, sem o 55 do país (aceita quem digitar +55)
@@ -815,6 +837,7 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     });
   }
   function openModal(pre, source){
+    form.hidden = false; okEl.hidden = true;
     err.hidden = true; clearSel(); nomeEl.value=''; hpEl.value='';
     whatsEl.value=''; emailEl.value=''; whatsEl.classList.remove('invalido'); emailEl.classList.remove('invalido');
     currentSource = source || 'site';
@@ -910,11 +933,18 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     var texto = 'Oi, Vitória, sou ' + nome + '.\n\nLeitura: ' + leitura +
                 '\nSobre: ' + tema + '\nQuando: ' + quando + '\n\n(enviado pelo site)';
     var wa = 'https://wa.me/' + (cfg.WHATSAPP || '') + '?text=' + encodeURIComponent(texto);
-    closeModal();
-    var w = window.open(wa, '_blank');
-    // Se o navegador bloquear a nova aba, abre na mesma aba — com uma folga
-    // para o evento Lead do Pixel ser enviado antes de sair da página.
-    if(!w){ setTimeout(function(){ location.href = wa; }, 600); }
+    // Troca o formulário pela confirmação (com botão para abrir de novo),
+    // porque no navegador do Instagram/Facebook o WhatsApp às vezes não abre.
+    document.getElementById('ok-titulo').textContent = 'Pronto, ' + nome.split(/\s+/)[0] + '.';
+    document.getElementById('ok-numero').textContent =
+      '(' + whats.slice(0,2) + ') ' + whats.slice(2, whats.length - 4) + '-' + whats.slice(-4);
+    document.getElementById('ok-whats').href = wa;
+    form.hidden = true; okEl.hidden = false;
+    try{ window.open(wa, '_blank'); }catch(e){}
+  });
+
+  document.getElementById('ok-whats').addEventListener('click', function(){
+    try{ if(window.fbq) fbq('trackCustom', 'WhatsAppReabrir'); }catch(e){}
   });
 })();
 </script>
