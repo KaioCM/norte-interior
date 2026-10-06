@@ -751,7 +751,7 @@ document.querySelectorAll('.js-insta').forEach(function(a){
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
       Continuar no WhatsApp
     </button>
-    <p class="consent">Ao continuar, você concorda que eu entre em contato pelo WhatsApp (ou e-mail, se informar). Seus dados ficam só comigo. Sem spam.</p>
+    <p class="consent">Ao continuar, você concorda que eu entre em contato pelo WhatsApp (ou e-mail, se informar). Esses dados também são usados de forma criptografada para medir meus anúncios — se recusou cookies, não são enviados. Sem spam.</p>
   </form>
 </dialog>
 
@@ -872,6 +872,13 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     var URGENCIA = { 'Essa semana':'essa_semana', 'Este mês':'este_mes', 'Só pesquisando':'pesquisando' };
     try{
       if(window.fbq && window.NORTE_PIXEL_ID){
+        // Correspondência avançada: só se a pessoa não recusou cookies.
+        // O Pixel normaliza e criptografa (SHA-256) no navegador antes de enviar.
+        if(window.norteConsent() !== 'recusado'){
+          var dadosPessoa = { ph: '55' + whats, country: 'br' };
+          if(email) dadosPessoa.em = email.toLowerCase();
+          fbq('init', window.NORTE_PIXEL_ID, dadosPessoa);
+        }
         fbq('track','Lead',{
           content_name: leitura,          // qual leitura
           content_category: tema,         // sobre o que quer clareza
