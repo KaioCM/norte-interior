@@ -61,6 +61,10 @@
   .tag{font-size:.78rem;background:#fffdf9;border:1px solid var(--line);border-radius:999px;padding:.2em .7em;color:var(--ink-soft)}
   .tag.leitura{background:var(--terracota);color:var(--creme);border-color:var(--terracota)}
   .lead .when{font-size:.78rem;color:var(--ink-faint)}
+  .lead .contato{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem;color:var(--ink-soft);margin:2px 0 6px}
+  .lead .contato b{color:var(--tinta);font-weight:600}
+  .btn.whats{background:#2f7d4f}
+  .btn.whats:hover{background:#25643f}
   .lead .side{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
   .status{font-size:.78rem;font-weight:600;padding:.25em .7em;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
   /* Temperatura do lead (pela urgência) */
@@ -315,7 +319,12 @@
     var rows = allLeads.filter(function(l){
       if(fs && l.status!==fs) return false;
       if(ft && temperatura(l).k!==ft) return false;
-      if(q && (l.nome||'').toLowerCase().indexOf(q)<0) return false;
+      if(q){
+        var alvo = [(l.nome||''), (l.email||''), (l.whatsapp||'')].join(' ').toLowerCase();
+        var qDig = q.replace(/\D/g,'');
+        var achou = alvo.indexOf(q) >= 0 || (qDig.length >= 4 && (l.whatsapp||'').indexOf(qDig) >= 0);
+        if(!achou) return false;
+      }
       return true;
     });
     if(!rows.length){ listEl.innerHTML = '<div class="empty">Nenhum lead por aqui ainda.</div>'; return; }
@@ -339,10 +348,15 @@
           (l.tema?'<span class="tag">'+esc(l.tema)+'</span>':'')+
           (l.quando?'<span class="tag">'+esc(l.quando)+'</span>':'')+
         '</div>'+
+        ((l.whatsapp||l.email)?'<div class="contato">'+
+          (l.whatsapp?'<span>WhatsApp: <b>'+fmtWhats(l.whatsapp)+'</b></span>':'')+
+          (l.email?'<a href="mailto:'+esc(l.email)+'">'+esc(l.email)+'</a>':'')+
+        '</div>':'')+
         '<div class="when">'+fmtDate(l.created_at)+' · origem: '+esc(l.source||'-')+(utm?' · '+esc(utm):'')+'</div>'+
       '</div>'+
       '<div class="side">'+
         '<span class="status '+esc(l.status)+'">'+esc(l.status)+'</span>'+
+        (l.whatsapp?'<a class="btn sm whats" href="'+linkWhats(l)+'" target="_blank" rel="noopener">Chamar no WhatsApp</a>':'')+
         '<div class="actions">'+
           btn(l,'contatado','Contatado')+
           btn(l,'agendado','Agendado')+
@@ -350,6 +364,26 @@
         '</div>'+
       '</div>'+
     '</div>';
+  }
+  // 5565992523278 -> (65) 99252-3278
+  function fmtWhats(n){
+    var d = String(n||'').replace(/\D/g,'');
+    if(d.indexOf('55') === 0 && d.length >= 12) d = d.slice(2);
+    if(d.length < 10) return esc(n);
+    return '(' + d.slice(0,2) + ') ' + d.slice(2, d.length-4) + '-' + d.slice(-4);
+  }
+  // Conversa já com uma mensagem da Vitória (sem exclamação, no tom da marca)
+  function linkWhats(l){
+    var primeiroNome = String(l.nome||'').trim().split(/\s+/)[0];
+    var PEDIDO = {
+      'Leitura geral':'uma leitura geral', 'Por tema':'uma leitura por tema',
+      'Pergunta única':'uma pergunta única', '2 perguntas detalhadas':'a promo de 2 perguntas detalhadas',
+      'Acompanhamento':'o acompanhamento semanal'
+    };
+    var texto = 'Oi, ' + primeiroNome + ', aqui é a Vitória, do Norte Interior. ' +
+      'Vi que você pediu ' + (PEDIDO[l.leitura] || 'uma leitura') + ' pelo site. ' +
+      'Quer que a gente combine um horário?';
+    return 'https://wa.me/' + String(l.whatsapp).replace(/\D/g,'') + '?text=' + encodeURIComponent(texto);
   }
   function btn(l,st,label){
     if(l.status===st) return '';
