@@ -659,6 +659,17 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     try{ if(window.fbq){ fbq('trackCustom','InstagramClick'); } }catch(e){}
   });
 });
+// Chegou até os preços (uma vez por visita)
+(function(){
+  var sec = document.getElementById('leituras');
+  if(!sec || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    if(!entries[0].isIntersecting) return;
+    io.disconnect();
+    try{ if(window.fbq){ fbq('trackCustom','ViuPrecos'); } }catch(e){}
+  }, { threshold: 0.1 });
+  io.observe(sec);
+})();
 </script>
 
 <!-- ============ AVISO DE COOKIES (LGPD) ============ -->
@@ -789,6 +800,9 @@ document.querySelectorAll('.js-insta').forEach(function(a){
   var emailEl = document.getElementById('f-email');
   var okEl = document.getElementById('agendar-ok');
   var currentSource = 'site';
+  var comecou = false;
+  // Funil no Pixel (sem dado pessoal): abriu → começou → erro → Lead
+  function px(nome, dados){ try{ if(window.fbq) fbq('trackCustom', nome, dados || {}); }catch(e){} }
 
   // WhatsApp: só dígitos, sem o 55 do país (aceita quem digitar +55)
   function digitosWhats(v){
@@ -811,8 +825,9 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     whatsEl.classList.remove('invalido');
   });
   emailEl.addEventListener('input', function(){ emailEl.classList.remove('invalido'); });
-  function mostrarErro(texto, campo){
+  function mostrarErro(texto, campo, tipo){
     err.textContent = texto; err.hidden = false;
+    px('ErroAgendar', { erro: tipo });
     if(campo){ campo.classList.add('invalido'); try{ campo.focus(); }catch(e){} }
   }
 
@@ -841,6 +856,8 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     err.hidden = true; clearSel(); nomeEl.value=''; hpEl.value='';
     whatsEl.value=''; emailEl.value=''; whatsEl.classList.remove('invalido'); emailEl.classList.remove('invalido');
     currentSource = source || 'site';
+    comecou = false;
+    px('AbriuAgendar', { origem: currentSource });
     preSelectLeitura(pre);
     if(typeof modal.showModal === 'function'){ modal.showModal(); } else { modal.setAttribute('open',''); }
     setTimeout(function(){ try{ nomeEl.focus(); }catch(e){} }, 60);
@@ -856,12 +873,20 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     });
   });
 
+  function marcarComeco(){
+    if(comecou) return;
+    comecou = true;
+    px('ComecouAgendar', { origem: currentSource });
+  }
+  form.addEventListener('input', marcarComeco);
+
   modal.addEventListener('click', function(e){
     if(e.target === modal){ closeModal(); return; }          // clique no backdrop
     if(e.target.closest('[data-close]')){ closeModal(); return; }
     var chip = e.target.closest('.chip');
     if(!chip) return;
     var group = chip.closest('.chips');
+    marcarComeco();
     group.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('is-on'); });
     chip.classList.add('is-on');
     group.dataset.selected = chip.dataset.value;
@@ -872,12 +897,12 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     if(hpEl.value){ closeModal(); return; }                   // honeypot (bot)
     var nome = (nomeEl.value || '').trim();
     var leitura = sel('leitura'), tema = sel('tema'), quando = sel('quando');
-    if(!nome){ mostrarErro('Me conta como posso te chamar.', nomeEl); return; }
-    if(!leitura || !tema || !quando){ mostrarErro('Escolhe uma opção em cada pergunta.'); return; }
+    if(!nome){ mostrarErro('Me conta como posso te chamar.', nomeEl, 'nome'); return; }
+    if(!leitura || !tema || !quando){ mostrarErro('Escolhe uma opção em cada pergunta.', null, 'opcoes'); return; }
     var whats = digitosWhats(whatsEl.value);
-    if(!whatsValido(whats)){ mostrarErro('Confere o WhatsApp: DDD + número, por exemplo (65) 99999-9999.', whatsEl); return; }
+    if(!whatsValido(whats)){ mostrarErro('Confere o WhatsApp: DDD + número, por exemplo (65) 99999-9999.', whatsEl, 'whatsapp'); return; }
     var email = (emailEl.value || '').trim();
-    if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ mostrarErro('Confere o e-mail, ou deixa em branco.', emailEl); return; }
+    if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ mostrarErro('Confere o e-mail, ou deixa em branco.', emailEl, 'email'); return; }
     err.hidden = true;
 
     var u = utm();
