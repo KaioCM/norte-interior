@@ -568,7 +568,7 @@
           <span class="rotulo">Quando quiser</span>
           <h2>O convite está aberto</h2>
           <p>Comece pelas 3 perguntas, ou me chama no WhatsApp que eu te ajudo a escolher o caminho.</p>
-          <a class="btn btn-creme js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20vim%20pelo%20site%20e%20quero%20uma%20leitura%20de%20tar%C3%B4." target="_blank" rel="noopener" data-source="convite">
+          <a class="btn btn-creme js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20vim%20pelo%20site%20e%20quero%20uma%20leitura%20de%20tar%C3%B4." target="_blank" rel="noopener" data-leitura="Ainda não decidi" data-source="convite">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
             Agendar pelo WhatsApp
           </a>
@@ -681,22 +681,23 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     <button type="button" class="modal-close" data-close aria-label="Fechar">&times;</button>
     <div class="modal-head">
       <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
-      <h2 id="modal-title">Vamos começar</h2>
-      <p>Só seu nome e WhatsApp — o resto a gente conversa por lá.</p>
+      <h2 id="modal-title">Bora pras cartas</h2>
+      <p>Me passa seu nome e WhatsApp e a gente já se fala por lá.</p>
     </div>
 
     <label class="field">
-      <span>Como posso te chamar?</span>
+      <span>Seu nome</span>
       <input id="f-nome" name="nome" type="text" maxlength="80" autocomplete="given-name" placeholder="Seu nome">
     </label>
 
     <fieldset class="chips" data-group="leitura">
-      <legend>Qual leitura?</legend>
+      <legend>Qual leitura você quer?</legend>
       <div class="chip-row">
         <button type="button" class="chip" data-value="3 perguntas">3 perguntas · R$25</button>
         <button type="button" class="chip" data-value="Por tema">Por tema · R$45</button>
         <button type="button" class="chip" data-value="Leitura geral">Leitura geral · R$60</button>
         <button type="button" class="chip" data-value="Acompanhamento">Acompanhamento</button>
+        <button type="button" class="chip" data-value="Ainda não decidi">Ainda não sei</button>
       </div>
     </fieldset>
 
@@ -710,9 +711,9 @@ document.querySelectorAll('.js-insta').forEach(function(a){
 
     <button type="submit" class="btn btn-primary modal-submit">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
-      Continuar no WhatsApp
+      Quero minha leitura
     </button>
-    <p class="consent">Ao continuar, você concorda que eu entre em contato pelo WhatsApp. Seu número também é usado de forma criptografada para medir meus anúncios — se recusou cookies, não é enviado. Sem spam.</p>
+    <p class="consent">Uso seu número para falar com você sobre a leitura e, criptografado, para medir meus anúncios (só se você aceitou os cookies). Nada de spam.</p>
   </form>
 
   <!-- Confirmação depois do envio: a pessoa nunca fica sem saída -->
@@ -720,14 +721,14 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     <button type="button" class="modal-close" data-close aria-label="Fechar">&times;</button>
     <div class="modal-head">
       <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
-      <h2 id="ok-titulo">Pronto.</h2>
-      <p>Sua mensagem já está escrita no meu WhatsApp. É só tocar em <strong>enviar</strong>.</p>
+      <h2 id="ok-titulo">Fechou.</h2>
+      <p>Sua mensagem já tá pronta no meu WhatsApp. Só tocar em <strong>enviar</strong>.</p>
     </div>
     <a class="btn btn-primary" id="ok-whats" href="#" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
       Abrir WhatsApp
     </a>
-    <p class="ok-nota">Se o WhatsApp não abriu, ou se preferir esperar, eu te chamo no <strong id="ok-numero"></strong> assim que puder.</p>
+    <p class="ok-nota">Não abriu? Relaxa, eu te chamo no <strong id="ok-numero"></strong>.</p>
     <button type="button" class="ok-fechar" data-close>Fechar</button>
   </div>
 </dialog>
@@ -897,13 +898,14 @@ document.querySelectorAll('.js-insta').forEach(function(a){
       '3 perguntas': 'Quero as 3 perguntas (R$25).',
       'Por tema': 'Quero uma leitura por tema (R$45).',
       'Leitura geral': 'Quero uma leitura geral (R$60).',
-      'Acompanhamento': 'Quero saber mais do acompanhamento.'
+      'Acompanhamento': 'Quero saber mais do acompanhamento.',
+      'Ainda não decidi': 'Ainda não sei qual leitura, me ajuda a escolher?'
     };
     var texto = 'Oi, Vi, sou ' + nome + '. ' + (QUERO[leitura] || 'Quero uma leitura.') + '\n\n(enviado pelo site)';
     var wa = 'https://wa.me/' + (cfg.WHATSAPP || '') + '?text=' + encodeURIComponent(texto);
     // Troca o formulário pela confirmação (com botão para abrir de novo),
     // porque no navegador do Instagram/Facebook o WhatsApp às vezes não abre.
-    document.getElementById('ok-titulo').textContent = 'Pronto, ' + nome.split(/\s+/)[0] + '.';
+    document.getElementById('ok-titulo').textContent = 'Fechou, ' + nome.split(/\s+/)[0] + '.';
     document.getElementById('ok-numero').textContent =
       '(' + whats.slice(0,2) + ') ' + whats.slice(2, whats.length - 4) + '-' + whats.slice(-4);
     document.getElementById('ok-whats').href = wa;

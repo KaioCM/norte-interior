@@ -392,7 +392,9 @@
       ? 'Pode me mandar suas perguntas por aqui, que eu te passo o Pix.'
       : 'Quer que a gente combine um horário?';
     var texto = 'Oi, ' + primeiroNome + ', aqui é a Vi, do Norte Interior. ' +
-      'Vi que você pediu ' + (PEDIDO[l.leitura] || 'uma leitura') + ' pelo site. ' + proximo;
+      (l.leitura === 'Ainda não decidi'
+        ? 'Vi que você ainda está escolhendo a leitura. Me conta o que está passando pela sua cabeça que eu te ajudo a escolher.'
+        : 'Vi que você pediu ' + (PEDIDO[l.leitura] || 'uma leitura') + ' pelo site. ' + proximo);
     return 'https://wa.me/' + String(l.whatsapp).replace(/\D/g,'') + '?text=' + encodeURIComponent(texto);
   }
   function btn(l,st,label){
