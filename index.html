@@ -154,6 +154,8 @@
   .hero h1{font-size:clamp(2.6rem,6vw,4rem);margin:.28em 0 .5em}
   .hero p.lead{font-size:1.12rem;color:var(--ink-soft);max-width:44ch;margin-bottom:1.9em}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-oferta{margin-top:16px;font-size:.92rem;color:var(--ink-soft)}
+  .hero-oferta strong{color:var(--terracota-escuro)}
 
   /* ============ Seções ============ */
   .band{padding-block:66px}
@@ -162,13 +164,13 @@
   .head h2{font-size:clamp(1.9rem,4.4vw,2.9rem);margin-top:.32em}
   .head p{color:var(--ink-soft);margin-top:.75em;font-size:1.06rem}
 
-  /* Leituras — 4 cartões, alternando areia / sálvia clara */
-  .leituras{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  /* Leituras — oferta de entrada em destaque + 3 cartões */
+  .leituras{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .card{
     border-radius:var(--radius);padding:26px 24px;display:flex;flex-direction:column;
     background:var(--areia);transition:transform .18s ease;
   }
-  .card:nth-child(3),.card:nth-child(4){background:var(--salvia-clara)}
+  .card:nth-child(3){background:var(--salvia-clara)}
   .card:hover{transform:translateY(-4px)}
   .card .rotulo{margin-bottom:14px}
   .card h3{font-size:1.5rem;margin-bottom:.35em}
@@ -198,8 +200,8 @@
     .foto-vitoria{max-width:280px}
   }
 
-  /* Promo — faixa em destaque abaixo dos cartões */
-  .promo{margin-top:18px;border:1.5px solid var(--terracota);border-radius:var(--radius);
+  /* Oferta de entrada — faixa em destaque acima dos cartões */
+  .promo{margin:0 0 18px;border:1.5px solid var(--terracota);border-radius:var(--radius);
     background:#fbf3e6;padding:24px 28px;display:grid;grid-template-columns:1fr auto;gap:14px 28px;align-items:center}
   .promo-tag{display:inline-block;background:var(--terracota);color:var(--creme);font-weight:600;font-size:.72rem;
     letter-spacing:.16em;text-transform:uppercase;padding:.35em .9em;border-radius:999px;margin-bottom:10px}
@@ -210,7 +212,8 @@
   .promo .price .cur{font-family:var(--body);font-weight:600;font-size:.8rem;color:var(--ink-faint);margin-right:.35em}
   @media(max-width:720px){
     .promo{grid-template-columns:1fr;padding:22px}
-    .promo-side{justify-content:space-between}
+    .promo-side{flex-direction:column;align-items:stretch;gap:12px}
+    .promo-side .btn{width:100%;white-space:nowrap}
   }
 
   /* Como funciona — ritmo de três, símbolo como numerador */
@@ -286,7 +289,7 @@
   /* ============ Responsivo ============ */
   @media(max-width:860px){
     .hero{padding:44px 34px}
-    .leituras{grid-template-columns:repeat(2,1fr)}
+    .leituras{grid-template-columns:1fr}
     .passos{grid-template-columns:1fr;gap:26px}
   }
   @media(max-width:560px){
@@ -403,12 +406,13 @@
           <h1>Encontre o seu norte interior</h1>
           <p class="lead">Uma leitura de tarô é um espaço de pausa e clareza para olhar com calma o momento que você vive.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20leitura%20de%20tar%C3%B4." target="_blank" rel="noopener" data-source="hero">
+            <a class="btn btn-primary js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20as%203%20perguntas." target="_blank" rel="noopener" data-leitura="3 perguntas" data-source="hero">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
-              Agendar pelo WhatsApp
+              Quero minhas 3 perguntas
             </a>
             <a class="btn btn-outline" href="#leituras">Ver as leituras</a>
           </div>
+          <p class="hero-oferta"><strong>3 perguntas por R$25</strong> · foto das cartas + áudio meu em até 24h</p>
         </div>
       </div>
     </div>
@@ -435,30 +439,37 @@
     <div class="wrap">
       <div class="head center">
         <span class="rotulo">As leituras</span>
-        <h2>Escolha o encontro para este momento</h2>
-        <p>Todas as sessões são conversas de reflexão e clareza. Sem promessas, sem pressa — só um espaço para você se ouvir melhor.</p>
+        <h2>Escolha sua leitura</h2>
+        <p>Leituras de reflexão e clareza, sem promessas. Tudo pelo WhatsApp, de qualquer lugar do Brasil.</p>
       </div>
+
+      <!-- Oferta de entrada: a primeira coisa que se vê nas leituras -->
+      <article class="promo entrada">
+        <div>
+          <span class="promo-tag">Para começar</span>
+          <h3>3 perguntas</h3>
+          <p class="desc">Três dúvidas suas, respondidas com foto das cartas e um áudio meu explicando cada uma. Chega em até 24h, sem precisar marcar horário.</p>
+        </div>
+        <div class="promo-side">
+          <div class="price"><span class="cur">R$</span>25</div>
+          <a class="btn btn-primary js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20as%203%20perguntas." target="_blank" rel="noopener" data-leitura="3 perguntas" data-source="card-3-perguntas">Quero minhas 3 perguntas</a>
+        </div>
+      </article>
+
       <div class="leituras">
 
         <article class="card">
-          <h3>Leitura geral</h3>
-          <p class="desc">O momento de vida como um todo: o que pede atenção e onde vale colocar energia.</p>
-          <div class="price"><span class="cur">R$</span>60</div>
-          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20tenho%20interesse%20na%20leitura%20geral." target="_blank" rel="noopener" data-leitura="Leitura geral" data-source="card-geral">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
-        </article>
-
-        <article class="card">
           <h3>Por tema</h3>
-          <p class="desc">Um foco escolhido por você — amor, carreira ou uma decisão — para olhar com mais profundidade.</p>
+          <p class="desc">Um foco escolhido por você — amor, carreira ou uma decisão — para olhar com mais profundidade. Ao vivo, com horário marcado.</p>
           <div class="price"><span class="cur">R$</span>45</div>
           <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20uma%20leitura%20por%20tema." target="_blank" rel="noopener" data-leitura="Por tema" data-source="card-tema">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
         <article class="card">
-          <h3>Pergunta única</h3>
-          <p class="desc">Formato curto e direto para uma dúvida pontual. Bom para sentir como funciona.</p>
-          <div class="price"><span class="cur">R$</span>15</div>
-          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20fazer%20uma%20pergunta%20%C3%BAnica." target="_blank" rel="noopener" data-leitura="Pergunta única" data-source="card-pergunta">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <h3>Leitura geral</h3>
+          <p class="desc">O momento de vida como um todo: o que pede atenção e onde vale colocar energia. Ao vivo, com horário marcado.</p>
+          <div class="price"><span class="cur">R$</span>60</div>
+          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20tenho%20interesse%20na%20leitura%20geral." target="_blank" rel="noopener" data-leitura="Leitura geral" data-source="card-geral">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
         <article class="card">
@@ -470,19 +481,7 @@
 
       </div>
 
-      <article class="promo">
-        <div>
-          <span class="promo-tag">Promo</span>
-          <h3>2 perguntas detalhadas</h3>
-          <p class="desc">Duas perguntas, cada uma com uma leitura mais aprofundada. Um jeito leve de ir além da pergunta única.</p>
-        </div>
-        <div class="promo-side">
-          <div class="price"><span class="cur">R$</span>20</div>
-          <a class="btn btn-primary js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20a%20promo%20de%202%20perguntas%20detalhadas." target="_blank" rel="noopener" data-leitura="2 perguntas detalhadas" data-source="promo-2-perguntas">Agendar</a>
-        </div>
-      </article>
-
-      <p class="leituras-nota">Agendamento pelo WhatsApp · atendimento online e reservado</p>
+      <p class="leituras-nota">Pagamento por Pix antes da leitura · atendimento online e reservado</p>
     </div>
   </section>
 
@@ -491,7 +490,7 @@
     <div class="wrap">
       <div class="head center">
         <span class="rotulo">Como funciona</span>
-        <h2>Do primeiro oi ao fim da sessão</h2>
+        <h2>Do primeiro oi à sua leitura</h2>
       </div>
       <div class="passos">
         <div class="passo">
@@ -500,23 +499,23 @@
             <span class="n">ETAPA 01</span>
           </div>
           <h3>Você me chama no WhatsApp</h3>
-          <p>Conte em poucas palavras o que procura. Eu te ajudo a escolher a leitura e a gente combina o horário.</p>
+          <p>Escolhe a leitura e me conta sua dúvida. Se não souber qual escolher, eu te ajudo.</p>
         </div>
         <div class="passo">
           <div class="marca">
             <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
             <span class="n">ETAPA 02</span>
           </div>
-          <h3>A gente marca o encontro</h3>
-          <p>A sessão acontece online, num momento tranquilo e reservado, no seu ritmo.</p>
+          <h3>Pix e pronto</h3>
+          <p>O pagamento é por Pix, antes da leitura. Nas 3 perguntas não precisa marcar horário; nas leituras ao vivo, a gente combina o melhor momento.</p>
         </div>
         <div class="passo">
           <div class="marca">
             <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
             <span class="n">ETAPA 03</span>
           </div>
-          <h3>Você sai com mais clareza</h3>
-          <p>Uma conversa acolhedora e sem julgamentos — para enxergar seu momento com mais consciência.</p>
+          <h3>Você recebe sua leitura</h3>
+          <p>Nas 3 perguntas, chega foto das cartas e um áudio meu em até 24h. Nas outras, a conversa é ao vivo, no seu ritmo.</p>
         </div>
       </div>
     </div>
@@ -543,12 +542,16 @@
           <p class="a">Não. A leitura é um espaço de reflexão e bem-estar e não substitui acompanhamento médico, psicológico, jurídico ou financeiro. Em um momento difícil, procure também o apoio adequado.</p>
         </details>
         <details>
-          <summary>Como funciona o pagamento e o agendamento?</summary>
-          <p class="a">O contato e o agendamento são feitos pelo WhatsApp. Ali a gente combina horário e forma de pagamento antes da sessão.</p>
+          <summary>Como recebo a leitura?</summary>
+          <p class="a">Nas 3 perguntas, eu tiro as cartas, te mando a foto e um áudio explicando cada resposta, em até 24h. A leitura por tema, a geral e o acompanhamento são ao vivo, com horário que a gente combina.</p>
+        </details>
+        <details>
+          <summary>Como funciona o pagamento?</summary>
+          <p class="a">Por Pix, antes da leitura. Você me chama no WhatsApp, eu confirmo a leitura e te mando a chave. Nas 3 perguntas, o prazo de até 24h começa a contar depois do Pix.</p>
         </details>
         <details>
           <summary>É online ou presencial?</summary>
-          <p class="a">As sessões são online, para atender você de onde estiver, com conforto e privacidade.</p>
+          <p class="a">Online, pelo WhatsApp, para atender você de qualquer lugar do Brasil, com conforto e privacidade.</p>
         </details>
       </div>
     </div>
@@ -564,8 +567,8 @@
           <svg class="gota" width="52" height="52" style="--sym-circle:#f0c9a6;--sym-drop:#402310;margin-bottom:18px" aria-hidden="true"><use href="#gota"/></svg>
           <span class="rotulo">Quando quiser</span>
           <h2>O convite está aberto</h2>
-          <p>Comece por uma conversa simples no WhatsApp, sem compromisso. Eu te ajudo a escolher o caminho.</p>
-          <a class="btn btn-creme js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20leitura%20de%20tar%C3%B4." target="_blank" rel="noopener" data-source="convite">
+          <p>Comece pelas 3 perguntas, ou me chama no WhatsApp que eu te ajudo a escolher o caminho.</p>
+          <a class="btn btn-creme js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20vim%20pelo%20site%20e%20quero%20uma%20leitura%20de%20tar%C3%B4." target="_blank" rel="noopener" data-source="convite">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
             Agendar pelo WhatsApp
           </a>
@@ -678,8 +681,8 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     <button type="button" class="modal-close" data-close aria-label="Fechar">&times;</button>
     <div class="modal-head">
       <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
-      <h2 id="modal-title">Vamos agendar</h2>
-      <p>Responda rapidinho — você cai direto no meu WhatsApp, já com tudo anotado.</p>
+      <h2 id="modal-title">Vamos começar</h2>
+      <p>Só seu nome e WhatsApp — o resto a gente conversa por lá.</p>
     </div>
 
     <label class="field">
@@ -690,52 +693,26 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     <fieldset class="chips" data-group="leitura">
       <legend>Qual leitura?</legend>
       <div class="chip-row">
-        <button type="button" class="chip" data-value="Leitura geral">Leitura geral</button>
-        <button type="button" class="chip" data-value="Por tema">Por tema</button>
-        <button type="button" class="chip" data-value="Pergunta única">Pergunta única</button>
-        <button type="button" class="chip" data-value="2 perguntas detalhadas">2 perguntas (promo)</button>
+        <button type="button" class="chip" data-value="3 perguntas">3 perguntas · R$25</button>
+        <button type="button" class="chip" data-value="Por tema">Por tema · R$45</button>
+        <button type="button" class="chip" data-value="Leitura geral">Leitura geral · R$60</button>
         <button type="button" class="chip" data-value="Acompanhamento">Acompanhamento</button>
       </div>
     </fieldset>
 
-    <fieldset class="chips" data-group="tema">
-      <legend>Sobre o que você quer clareza?</legend>
-      <div class="chip-row">
-        <button type="button" class="chip" data-value="Amor &amp; relações">Amor &amp; relações</button>
-        <button type="button" class="chip" data-value="Carreira &amp; trabalho">Carreira &amp; trabalho</button>
-        <button type="button" class="chip" data-value="Uma decisão">Uma decisão</button>
-        <button type="button" class="chip" data-value="Autoconhecimento">Autoconhecimento</button>
-      </div>
-    </fieldset>
-
-    <fieldset class="chips" data-group="quando">
-      <legend>Quando pretende fazer?</legend>
-      <div class="chip-row">
-        <button type="button" class="chip" data-value="Essa semana">Essa semana</button>
-        <button type="button" class="chip" data-value="Este mês">Este mês</button>
-        <button type="button" class="chip" data-value="Só pesquisando">Só pesquisando</button>
-      </div>
-    </fieldset>
-
-    <div class="contato-grid">
-      <label class="field">
-        <span>Seu WhatsApp</span>
-        <input id="f-whats" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(65) 99999-9999" maxlength="16">
-      </label>
-      <label class="field">
-        <span>E-mail <em>(opcional)</em></span>
-        <input id="f-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" maxlength="254">
-      </label>
-    </div>
+    <label class="field">
+      <span>Seu WhatsApp</span>
+      <input id="f-whats" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(65) 99999-9999" maxlength="16">
+    </label>
 
     <input type="text" class="hp" id="f-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="modal-err" id="f-err" hidden>Preenche o nome e escolhe uma opção em cada pergunta.</p>
+    <p class="modal-err" id="f-err" hidden>Preenche seu nome e WhatsApp.</p>
 
     <button type="submit" class="btn btn-primary modal-submit">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
       Continuar no WhatsApp
     </button>
-    <p class="consent">Ao continuar, você concorda que eu entre em contato pelo WhatsApp (ou e-mail, se informar). Esses dados também são usados de forma criptografada para medir meus anúncios — se recusou cookies, não são enviados. Sem spam.</p>
+    <p class="consent">Ao continuar, você concorda que eu entre em contato pelo WhatsApp. Seu número também é usado de forma criptografada para medir meus anúncios — se recusou cookies, não é enviado. Sem spam.</p>
   </form>
 
   <!-- Confirmação depois do envio: a pessoa nunca fica sem saída -->
@@ -765,7 +742,6 @@ document.querySelectorAll('.js-insta').forEach(function(a){
   var nomeEl = document.getElementById('f-nome');
   var hpEl = document.getElementById('f-hp');
   var whatsEl = document.getElementById('f-whats');
-  var emailEl = document.getElementById('f-email');
   var okEl = document.getElementById('agendar-ok');
   var currentSource = 'site';
   var comecou = false;
@@ -792,7 +768,6 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     whatsEl.value = f;
     whatsEl.classList.remove('invalido');
   });
-  emailEl.addEventListener('input', function(){ emailEl.classList.remove('invalido'); });
   function mostrarErro(texto, campo, tipo){
     err.textContent = texto; err.hidden = false;
     px('ErroAgendar', { erro: tipo });
@@ -822,11 +797,11 @@ document.querySelectorAll('.js-insta').forEach(function(a){
   function openModal(pre, source){
     form.hidden = false; okEl.hidden = true;
     err.hidden = true; clearSel(); nomeEl.value=''; hpEl.value='';
-    whatsEl.value=''; emailEl.value=''; whatsEl.classList.remove('invalido'); emailEl.classList.remove('invalido');
+    whatsEl.value=''; whatsEl.classList.remove('invalido');
     currentSource = source || 'site';
     comecou = false;
     px('AbriuAgendar', { origem: currentSource });
-    preSelectLeitura(pre);
+    preSelectLeitura(pre || '3 perguntas');   // sem leitura escolhida, começa pela oferta de entrada
     if(typeof modal.showModal === 'function'){ modal.showModal(); } else { modal.setAttribute('open',''); }
     setTimeout(function(){ try{ nomeEl.focus(); }catch(e){} }, 60);
   }
@@ -864,19 +839,17 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     e.preventDefault();
     if(hpEl.value){ closeModal(); return; }                   // honeypot (bot)
     var nome = (nomeEl.value || '').trim();
-    var leitura = sel('leitura'), tema = sel('tema'), quando = sel('quando');
+    var leitura = sel('leitura');
     if(!nome){ mostrarErro('Me conta como posso te chamar.', nomeEl, 'nome'); return; }
-    if(!leitura || !tema || !quando){ mostrarErro('Escolhe uma opção em cada pergunta.', null, 'opcoes'); return; }
+    if(!leitura){ mostrarErro('Escolhe uma leitura.', null, 'opcoes'); return; }
     var whats = digitosWhats(whatsEl.value);
     if(!whatsValido(whats)){ mostrarErro('Confere o WhatsApp: DDD + número, por exemplo (65) 99999-9999.', whatsEl, 'whatsapp'); return; }
-    var email = (emailEl.value || '').trim();
-    if(email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ mostrarErro('Confere o e-mail, ou deixa em branco.', emailEl, 'email'); return; }
     err.hidden = true;
 
     var u = utm();
     var payload = {
-      nome: nome, leitura: leitura, tema: tema, quando: quando,
-      whatsapp: '55' + whats, email: email || null,
+      nome: nome, leitura: leitura,
+      whatsapp: '55' + whats,
       source: currentSource || 'site',
       utm_source: u.utm_source, utm_medium: u.utm_medium, utm_campaign: u.utm_campaign
     };
@@ -884,8 +857,7 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     // Meta Pixel — conversão de Lead
     // Detalhes do lead para a Meta (sem nome nem dado pessoal).
     // Preços espelham os cartões do site — atualize aqui se mudarem.
-    var PRECOS = { 'Pergunta única':15, '2 perguntas detalhadas':20, 'Por tema':45, 'Leitura geral':60, 'Acompanhamento':220 };
-    var URGENCIA = { 'Essa semana':'essa_semana', 'Este mês':'este_mes', 'Só pesquisando':'pesquisando' };
+    var PRECOS = { '3 perguntas':25, 'Por tema':45, 'Leitura geral':60, 'Acompanhamento':220 };
     // Nome "teste" (Teste, teste 2…) = teste interno: salva, mas não conta como Lead na Meta
     var ehTeste = /^teste\b/i.test(nome);
     try{
@@ -893,14 +865,10 @@ document.querySelectorAll('.js-insta').forEach(function(a){
         // Correspondência avançada: só se a pessoa não recusou cookies.
         // O Pixel normaliza e criptografa (SHA-256) no navegador antes de enviar.
         if(window.norteConsent() !== 'recusado'){
-          var dadosPessoa = { ph: '55' + whats, country: 'br' };
-          if(email) dadosPessoa.em = email.toLowerCase();
-          fbq('init', window.NORTE_PIXEL_ID, dadosPessoa);
+          fbq('init', window.NORTE_PIXEL_ID, { ph: '55' + whats, country: 'br' });
         }
         fbq('track','Lead',{
           content_name: leitura,          // qual leitura
-          content_category: tema,         // sobre o que quer clareza
-          urgencia: URGENCIA[quando] || quando,
           value: PRECOS[leitura] || 0,
           currency: 'BRL'
         });
@@ -925,8 +893,13 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     }catch(e){}
 
     // Abre o WhatsApp já preenchido
-    var texto = 'Oi, Vi, sou ' + nome + '.\n\nLeitura: ' + leitura +
-                '\nSobre: ' + tema + '\nQuando: ' + quando + '\n\n(enviado pelo site)';
+    var QUERO = {
+      '3 perguntas': 'Quero as 3 perguntas (R$25).',
+      'Por tema': 'Quero uma leitura por tema (R$45).',
+      'Leitura geral': 'Quero uma leitura geral (R$60).',
+      'Acompanhamento': 'Quero saber mais do acompanhamento.'
+    };
+    var texto = 'Oi, Vi, sou ' + nome + '. ' + (QUERO[leitura] || 'Quero uma leitura.') + '\n\n(enviado pelo site)';
     var wa = 'https://wa.me/' + (cfg.WHATSAPP || '') + '?text=' + encodeURIComponent(texto);
     // Troca o formulário pela confirmação (com botão para abrir de novo),
     // porque no navegador do Instagram/Facebook o WhatsApp às vezes não abre.

@@ -382,13 +382,17 @@
   function linkWhats(l){
     var primeiroNome = String(l.nome||'').trim().split(/\s+/)[0];
     var PEDIDO = {
+      '3 perguntas':'as 3 perguntas',
       'Leitura geral':'uma leitura geral', 'Por tema':'uma leitura por tema',
       'Pergunta única':'uma pergunta única', '2 perguntas detalhadas':'a promo de 2 perguntas detalhadas',
       'Acompanhamento':'o acompanhamento semanal'
     };
+    // 3 perguntas não tem horário: a pessoa manda as perguntas e paga o Pix
+    var proximo = l.leitura === '3 perguntas'
+      ? 'Pode me mandar suas perguntas por aqui, que eu te passo o Pix.'
+      : 'Quer que a gente combine um horário?';
     var texto = 'Oi, ' + primeiroNome + ', aqui é a Vi, do Norte Interior. ' +
-      'Vi que você pediu ' + (PEDIDO[l.leitura] || 'uma leitura') + ' pelo site. ' +
-      'Quer que a gente combine um horário?';
+      'Vi que você pediu ' + (PEDIDO[l.leitura] || 'uma leitura') + ' pelo site. ' + proximo;
     return 'https://wa.me/' + String(l.whatsapp).replace(/\D/g,'') + '?text=' + encodeURIComponent(texto);
   }
   function btn(l,st,label){
