@@ -4,3 +4,5 @@ norte-interior.html
 *.mp4
 *.png
 !assets/*.mp4
+research_notes/
+reports/
