@@ -156,6 +156,24 @@
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
   .hero-oferta{margin-top:16px;font-size:.92rem;color:var(--ink-soft)}
   .hero-oferta strong{color:var(--terracota-escuro)}
+  /* Leque de cartas no hero */
+  .hero{display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:24px}
+  .hero-cartas{position:relative;z-index:1;height:320px}
+  .hero-cartas .hc{position:absolute;top:50%;left:50%;width:150px;height:auto;
+    filter:drop-shadow(0 18px 26px rgba(64,35,16,.28))}
+  .hero-cartas .hc1{transform:translate(-50%,-50%) translate(-112px,18px) rotate(-14deg)}
+  .hero-cartas .hc2{transform:translate(-50%,-50%) translateY(-10px);width:136px}
+  .hero-cartas .hc3{transform:translate(-50%,-50%) translate(112px,18px) rotate(14deg)}
+
+  /* O que é o tarô — blocos em formato de carta */
+  .tarot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px;margin-inline:auto}
+  .tarot-carta{background:#fbf3e6;border:1.5px solid var(--terracota);border-radius:var(--radius);
+    padding:30px 24px 28px;text-align:center;box-shadow:inset 0 0 0 7px #fbf3e6,inset 0 0 0 8px rgba(198,113,57,.3)}
+  .tarot-carta .tc-num{display:flex;justify-content:center;align-items:center;height:56px;
+    font-family:var(--display);font-size:2.9rem;line-height:1;color:var(--terracota-escuro);margin-bottom:12px}
+  .tarot-carta h3{font-size:1.3rem;margin-bottom:.35em}
+  .tarot-carta p{color:var(--ink-soft);font-size:.97rem}
+  .tarot-nota{text-align:center;color:var(--ink-soft);max-width:56ch;margin:28px auto 0;font-size:1.02rem}
 
   /* ============ Seções ============ */
   .band{padding-block:66px}
@@ -288,7 +306,12 @@
 
   /* ============ Responsivo ============ */
   @media(max-width:860px){
-    .hero{padding:44px 34px}
+    .hero{padding:44px 34px;grid-template-columns:1fr;gap:8px}
+    .hero-cartas{height:240px}
+    .hero-cartas .hc{width:118px}
+    .hero-cartas .hc1{transform:translate(-50%,-50%) translate(-88px,14px) rotate(-14deg)}
+    .hero-cartas .hc2{width:106px}
+    .hero-cartas .hc3{transform:translate(-50%,-50%) translate(88px,14px) rotate(14deg)}
     .leituras{grid-template-columns:1fr}
     .passos{grid-template-columns:1fr;gap:26px}
   }
@@ -304,6 +327,7 @@
     .hero-cta{flex-direction:column;align-items:stretch}
     .hero-cta .btn{width:100%}
     .leituras{grid-template-columns:1fr}
+    .tarot-grid{grid-template-columns:1fr}
     .faq{padding-inline:22px}
     .convite{padding:52px 22px}
     .convite .btn{width:100%}
@@ -374,6 +398,33 @@
       <circle cx="12" cy="12" r="11.5" style="fill:var(--sym-circle,#c67139)"/>
       <path d="M12 5 C15.5 8.5 17 11.4 17 13.9 C17 16.2 14.8 17.9 12 17.9 C9.2 17.9 7 16.2 7 13.9 C7 11.4 8.5 8.5 12 5 Z" style="fill:var(--sym-drop,#f5ead8)"/>
     </symbol>
+    <!-- Cartas de tarô no estilo da marca (sem estrelas/luas): verso + 2 arcanos em traço geométrico -->
+    <symbol id="carta-verso" viewBox="0 0 120 190">
+      <rect x="1" y="1" width="118" height="188" rx="12" fill="#402310"/>
+      <rect x="8" y="8" width="104" height="174" rx="8" fill="none" stroke="#f0c9a6" stroke-opacity=".55" stroke-width="1.2"/>
+      <rect x="15" y="15" width="90" height="160" rx="5" fill="none" stroke="#f0c9a6" stroke-opacity=".22" stroke-width="1"/>
+      <path d="M60 26 l5 7 -5 7 -5 -7z M60 150 l5 7 -5 7 -5 -7z" fill="#c67139"/>
+      <circle cx="60" cy="95" r="26" fill="#f0c9a6"/>
+      <path d="M60 79 C67.5 86.5 70.5 92.6 70.5 98 C70.5 103 65.8 106.6 60 106.6 C54.2 106.6 49.5 103 49.5 98 C49.5 92.6 52.5 86.5 60 79 Z" fill="#402310"/>
+    </symbol>
+    <symbol id="carta-louco" viewBox="0 0 120 190">
+      <rect x="1" y="1" width="118" height="188" rx="12" fill="#fbf3e6" stroke="#c67139" stroke-width="1.5"/>
+      <rect x="8" y="8" width="104" height="174" rx="8" fill="none" stroke="#c67139" stroke-opacity=".35"/>
+      <text x="60" y="34" text-anchor="middle" font-family="Caprasimo, serif" font-size="15" fill="#8c491a">0</text>
+      <path d="M12 150 Q38 122 62 146 T110 140 V176 H12Z" fill="#ebddc5"/>
+      <path d="M34 150 C52 134 82 134 72 110 S46 86 60 64" fill="none" stroke="#c67139" stroke-width="3" stroke-linecap="round"/>
+      <path d="M60 46 C65 51 67 55 67 58.5 C67 62 63.9 64.5 60 64.5 C56.1 64.5 53 62 53 58.5 C53 55 55 51 60 46 Z" fill="#7a8a5e"/>
+      <text x="60" y="171" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="600" font-size="9.5" letter-spacing="1.6" fill="#402310">O LOUCO</text>
+    </symbol>
+    <symbol id="carta-forca" viewBox="0 0 120 190">
+      <rect x="1" y="1" width="118" height="188" rx="12" fill="#fbf3e6" stroke="#c67139" stroke-width="1.5"/>
+      <rect x="8" y="8" width="104" height="174" rx="8" fill="none" stroke="#c67139" stroke-opacity=".35"/>
+      <text x="60" y="34" text-anchor="middle" font-family="Caprasimo, serif" font-size="15" fill="#8c491a">VIII</text>
+      <path d="M60 78 C47 58 26 62 26 78 C26 94 47 98 60 78 C73 58 94 62 94 78 C94 94 73 98 60 78 Z" fill="none" stroke="#c67139" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M30 150 a30 30 0 0 1 60 0 z" fill="#f0c9a6"/>
+      <circle cx="60" cy="128" r="7" fill="#7a8a5e"/>
+      <text x="60" y="171" text-anchor="middle" font-family="Figtree, sans-serif" font-weight="600" font-size="9.5" letter-spacing="1.6" fill="#402310">A FORÇA</text>
+    </symbol>
   </defs>
 </svg>
 
@@ -385,6 +436,7 @@
       <span class="name">Norte Interior</span>
     </a>
     <nav class="nav-links">
+      <a class="link" href="#tarot">O tarô</a>
       <a class="link" href="#leituras">Leituras</a>
       <a class="link" href="#como">Como funciona</a>
       <a class="link" href="#duvidas">Dúvidas</a>
@@ -414,6 +466,11 @@
           </div>
           <p class="hero-oferta"><strong>3 perguntas por R$25</strong> · foto das cartas + áudio meu em até 24h</p>
         </div>
+        <div class="hero-cartas" aria-hidden="true">
+          <svg class="hc hc1" viewBox="0 0 120 190"><use href="#carta-louco"/></svg>
+          <svg class="hc hc3" viewBox="0 0 120 190"><use href="#carta-forca"/></svg>
+          <svg class="hc hc2" viewBox="0 0 120 190"><use href="#carta-verso"/></svg>
+        </div>
       </div>
     </div>
   </section>
@@ -431,6 +488,35 @@
              alt="Vi, taróloga do Norte Interior, sorrindo">
         <figcaption><svg class="gota" width="22" height="22" aria-hidden="true"><use href="#gota"/></svg>Prazer, sou a Vi</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- ============ O QUE É O TARÔ ============ -->
+  <section class="band" id="tarot">
+    <div class="wrap">
+      <div class="head center">
+        <span class="rotulo">O tarô em 1 minuto</span>
+        <h2>78 cartas, cada uma com uma história</h2>
+        <p>O tarô é um baralho cheio de símbolos. Cada carta representa uma situação, um sentimento ou uma fase da vida — e, juntas, elas ajudam a organizar o que você está vivendo.</p>
+      </div>
+      <div class="tarot-grid">
+        <article class="tarot-carta">
+          <span class="tc-num">22</span>
+          <h3>Arcanos Maiores</h3>
+          <p>Os grandes temas da vida: começos, escolhas, mudanças e fins de ciclo.</p>
+        </article>
+        <article class="tarot-carta">
+          <span class="tc-num">56</span>
+          <h3>Arcanos Menores</h3>
+          <p>O dia a dia: trabalho, relações, dinheiro e emoções.</p>
+        </article>
+        <article class="tarot-carta">
+          <span class="tc-num"><svg class="gota" width="44" height="44" aria-hidden="true"><use href="#gota"/></svg></span>
+          <h3>A sua leitura</h3>
+          <p>Você traz a pergunta, eu embaralho, tiro as cartas e leio o que elas mostram juntas sobre o seu momento.</p>
+        </article>
+      </div>
+      <p class="tarot-nota">O tarô funciona como um espelho: mostra caminhos, tendências e pontos de atenção. A escolha continua sendo sua.</p>
     </div>
   </section>
 
