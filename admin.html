@@ -186,6 +186,7 @@
   var statEl    = document.getElementById('stat');
   var whoEl     = document.getElementById('who');
   var allLeads  = [];
+  var testesOcultos = 0;
 
   function show(el){ el.hidden = false; }
   function hide(el){ el.hidden = true; }
@@ -282,7 +283,10 @@
     sb.from('norte_leads').select('*').order('created_at', { ascending:false })
       .then(function(r){
         if(r.error){ listEl.innerHTML = '<p class="muted">Erro ao carregar: '+r.error.message+'</p>'; return; }
-        allLeads = r.data || [];
+        // Leads com nome "teste" (Teste, teste 2…) ficam fora da lista e das contagens
+        var todos = r.data || [];
+        allLeads = todos.filter(function(l){ return !/^teste\b/i.test((l.nome||'').trim()); });
+        testesOcultos = todos.length - allLeads.length;
         renderStats(); render();
       });
   }
@@ -308,7 +312,9 @@
     statEl.innerHTML =
       pill(quentesNovos,'Quentes a responder','quente') +
       pill(allLeads.length,'Total') + pill(c.novo,'Novos') +
-      pill(c.contatado,'Contatados') + pill(c.agendado,'Agendados');
+      pill(c.contatado,'Contatados') + pill(c.agendado,'Agendados') +
+      (testesOcultos ? '<p class="muted" style="flex-basis:100%;margin:0;font-size:.82rem">' +
+        testesOcultos + (testesOcultos === 1 ? ' teste oculto' : ' testes ocultos') + '</p>' : '');
   }
   function pill(n,label,cls){ return '<div class="pill '+(cls||'')+'"><b>'+n+'</b><span>'+label+'</span></div>'; }
 

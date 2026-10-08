@@ -890,8 +890,10 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     // Preços espelham os cartões do site — atualize aqui se mudarem.
     var PRECOS = { 'Pergunta única':15, '2 perguntas detalhadas':20, 'Por tema':45, 'Leitura geral':60, 'Acompanhamento':220 };
     var URGENCIA = { 'Essa semana':'essa_semana', 'Este mês':'este_mes', 'Só pesquisando':'pesquisando' };
+    // Nome "teste" (Teste, teste 2…) = teste interno: salva, mas não conta como Lead na Meta
+    var ehTeste = /^teste\b/i.test(nome);
     try{
-      if(window.fbq && window.NORTE_PIXEL_ID){
+      if(window.fbq && window.NORTE_PIXEL_ID && !ehTeste){
         // Correspondência avançada: só se a pessoa não recusou cookies.
         // O Pixel normaliza e criptografa (SHA-256) no navegador antes de enviar.
         if(window.norteConsent() !== 'recusado'){
