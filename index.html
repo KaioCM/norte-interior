@@ -58,13 +58,15 @@
     --tinta:#201e1d;
     --terracota:#c67139;
     --terracota-escuro:#8c491a;
+    --terracota-btn:#a15725;   /* terracota para fundo com texto creme (contraste 4,5:1) */
+    --salvia-btn:#616f49;      /* sálvia para fundo com texto creme (contraste 4,5:1) */
     --salvia:#7a8a5e;
     --barro:#402310;
     --salvia-clara:#f0fae1;
     --pessego:#f0c9a6;
 
     --ink-soft:#5c534a;
-    --ink-faint:#8a8073;
+    --ink-faint:#6b6157;
     --line:#e0d2ba;
     --radius:28px;
     --radius-sm:16px;
@@ -76,6 +78,11 @@
   *{box-sizing:border-box}
   [hidden]{display:none!important}
   html{overflow-x:hidden;scroll-behavior:smooth}
+  section[id],[id="topo"]{scroll-margin-top:84px}           /* âncoras não ficam embaixo do topo fixo */
+  body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}   /* recorte do iPhone na horizontal */
+  a,button,summary{touch-action:manipulation}
+  .pular{position:absolute;left:12px;top:-60px;z-index:100;background:var(--tinta);color:var(--creme);padding:10px 16px;border-radius:999px;font-weight:600;text-decoration:none}
+  .pular:focus{top:12px}
   body{
     margin:0;
     background:var(--creme);
@@ -113,10 +120,10 @@
     text-decoration:none;cursor:pointer;transition:transform .18s ease,background .18s ease,color .18s ease;
   }
   .btn svg{width:1.1em;height:1.1em;flex:none}
-  .btn-primary{background:var(--terracota);color:var(--creme)}
+  .btn-primary{background:var(--terracota-btn);color:var(--creme)}
   .btn-primary:hover{background:var(--terracota-escuro);transform:translateY(-2px)}
   .btn-outline{background:transparent;color:var(--terracota-escuro);border-color:var(--terracota)}
-  .btn-outline:hover{background:var(--terracota);color:var(--creme);transform:translateY(-2px)}
+  .btn-outline:hover{background:var(--terracota-btn);color:var(--creme);transform:translateY(-2px)}
   .btn-creme{background:var(--creme);color:var(--barro)}
   .btn-creme:hover{background:#fff6e6;transform:translateY(-2px)}
 
@@ -221,7 +228,7 @@
   /* Oferta de entrada — faixa em destaque acima dos cartões */
   .promo{margin:0 0 18px;border:1.5px solid var(--terracota);border-radius:var(--radius);
     background:#fbf3e6;padding:24px 28px;display:grid;grid-template-columns:1fr auto;gap:14px 28px;align-items:center}
-  .promo-tag{display:inline-block;background:var(--terracota);color:var(--creme);font-weight:600;font-size:.72rem;
+  .promo-tag{display:inline-block;background:var(--terracota-btn);color:var(--creme);font-weight:600;font-size:.72rem;
     letter-spacing:.16em;text-transform:uppercase;padding:.35em .9em;border-radius:999px;margin-bottom:10px}
   .promo h3{font-size:1.5rem;margin-bottom:.25em}
   .promo .desc{color:var(--ink-soft);font-size:.97rem;max-width:52ch}
@@ -276,8 +283,8 @@
   .insta-bio{display:block;font-size:.85rem;color:var(--ink-soft)}
   .insta h2{font-size:clamp(1.6rem,3.2vw,2.1rem);margin:.3em 0 .35em}
   .insta p{color:var(--ink-soft);max-width:54ch;margin-bottom:1.3em}
-  .btn-salvia{background:var(--salvia);color:var(--creme)}
-  .btn-salvia:hover{background:#66754d;transform:translateY(-2px)}
+  .btn-salvia{background:var(--salvia-btn);color:var(--creme)}
+  .btn-salvia:hover{background:#535f3d;transform:translateY(-2px)}
   @media(max-width:760px){
     .insta{grid-template-columns:1fr;padding:28px 22px}
     .insta-perfil{justify-self:start}
@@ -343,7 +350,7 @@
   .cookies-actions{display:flex;gap:8px;flex-wrap:wrap}
   .cookies .btn{padding:.55em 1.2em;font-size:.88rem}
   @media(max-width:560px){
-    .cookies{left:10px;right:10px;bottom:10px;max-width:none;padding:11px 14px;gap:8px;border-radius:14px}
+    .cookies{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:none;padding:11px 14px;gap:8px;border-radius:14px}
     .cookies p{font-size:.78rem;line-height:1.4}
     .cookies .cookies-extra{display:none}
     .cookies .btn{padding:.42em .9em;font-size:.82rem}
@@ -436,6 +443,7 @@
 </script>
 </head>
 <body>
+<a class="pular" href="#topo">Pular para o conteúdo</a>
 
 <!-- Símbolo reutilizável: gota-norte (definição) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -565,21 +573,21 @@
           <h3>Por tema</h3>
           <p class="desc">Um foco escolhido por você — amor, carreira ou uma decisão — para olhar com mais profundidade. Ao vivo, com horário marcado.</p>
           <div class="price"><span class="cur">R$</span>45</div>
-          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20uma%20leitura%20por%20tema." target="_blank" rel="noopener" data-leitura="Por tema" data-source="card-tema">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20quero%20uma%20leitura%20por%20tema." target="_blank" rel="noopener" data-leitura="Por tema" data-source="card-tema">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
         <article class="card">
           <h3>Leitura geral</h3>
           <p class="desc">O momento de vida como um todo: o que pede atenção e onde vale colocar energia. Ao vivo, com horário marcado.</p>
           <div class="price"><span class="cur">R$</span>60</div>
-          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20tenho%20interesse%20na%20leitura%20geral." target="_blank" rel="noopener" data-leitura="Leitura geral" data-source="card-geral">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20tenho%20interesse%20na%20leitura%20geral." target="_blank" rel="noopener" data-leitura="Leitura geral" data-source="card-geral">Agendar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
         <article class="card">
           <h3>Acompanhamento</h3>
           <p class="desc">Um encontro por semana, para acompanhar um processo com continuidade ao longo do tempo.</p>
           <div class="price"><span class="cur">R$</span>220<span class="per">/mês</span></div>
-          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20tenho%20interesse%20no%20acompanhamento." target="_blank" rel="noopener" data-leitura="Acompanhamento" data-source="card-acompanhamento">Conversar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <a class="clink js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20tenho%20interesse%20no%20acompanhamento." target="_blank" rel="noopener" data-leitura="Acompanhamento" data-source="card-acompanhamento">Conversar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
         </article>
 
       </div>
