@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Política de privacidade — Norte Interior</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Como o Norte Interior (Tarô com a Vi) coleta, usa e protege seus dados pessoais, conforme a LGPD.">
+<link rel="canonical" href="https://norteinterior.com.br/privacidade.html">
+<meta name="theme-color" content="#f5ead8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Ccircle%20cx='12'%20cy='12'%20r='11.5'%20fill='%23c67139'/%3E%3Cpath%20d='M12%205C15.5%208.5%2017%2011.4%2017%2013.9%2017%2016.2%2014.8%2017.9%2012%2017.9%209.2%2017.9%207%2016.2%207%2013.9%207%2011.4%208.5%208.5%2012%205Z'%20fill='%23f5ead8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --creme:#f5ead8;--areia:#ebddc5;--tinta:#201e1d;--terracota:#c67139;--terracota-escuro:#8c491a;
+    --salvia-clara:#f0fae1;--ink-soft:#5c534a;--ink-faint:#8a8073;--line:#e0d2ba;
+    --display:"Caprasimo","Cooper Black",Georgia,serif;
+    --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  body{margin:0;background:var(--creme);color:var(--tinta);font-family:var(--body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  a{color:var(--terracota-escuro)}
+  a:focus-visible{outline:2.5px solid var(--terracota-escuro);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:760px;margin-inline:auto;padding-inline:22px}
+  header{border-bottom:1px solid var(--line)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+  .mark{display:flex;align-items:center;gap:.55em;text-decoration:none;color:var(--tinta)}
+  .mark svg{width:28px;height:28px}
+  .mark span{font-family:var(--display);font-size:1.2rem}
+  .voltar{font-weight:600;font-size:.92rem;text-decoration:none}
+  main{padding-block:44px 64px}
+  .rotulo{font-weight:600;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--terracota-escuro)}
+  h1,h2{font-family:var(--display);font-weight:400;line-height:1.12;text-wrap:balance}
+  h1{font-size:clamp(2rem,6vw,2.8rem);margin:.25em 0 .3em}
+  h2{font-size:1.45rem;margin:2.2em 0 .5em;scroll-margin-top:20px}
+  h3{font-size:1.02rem;margin:1.4em 0 .3em}
+  p,li{color:var(--ink-soft)}
+  ul{padding-left:1.2em}
+  li{margin-bottom:.35em}
+  strong{color:var(--tinta)}
+  .meta{color:var(--ink-faint);font-size:.9rem}
+  .resumo{background:var(--salvia-clara);border-radius:20px;padding:22px 24px;margin-top:26px}
+  .resumo h2{margin-top:0;font-size:1.2rem}
+  .resumo ul{margin:0}
+  .tabela{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:16px;background:#fffdf9}
+  table{border-collapse:collapse;width:100%;min-width:520px;font-size:.92rem}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-weight:600;color:var(--tinta);background:#fbf5ea}
+  tr:last-child td{border-bottom:0}
+  td{color:var(--ink-soft)}
+  @media(max-width:600px){
+    .tabela{overflow:visible;border:0;background:transparent}
+    table{min-width:0}
+    thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    table,tbody,tr,td{display:block;width:100%}
+    tr{background:#fffdf9;border:1px solid var(--line);border-radius:14px;padding:6px 0;margin-bottom:10px}
+    td{border:0;padding:6px 14px}
+    td::before{content:attr(data-label);display:block;font-weight:600;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--terracota-escuro)}
+  }
+  .pendente{background:#ffe58a;color:#4a3a00;padding:0 .25em;border-radius:4px}
+  .btn{display:inline-flex;font-family:var(--body);font-weight:600;font-size:.95rem;padding:.7em 1.4em;border-radius:999px;border:1.5px solid var(--terracota);background:transparent;color:var(--terracota-escuro);cursor:pointer}
+  .btn:hover{background:var(--terracota);color:var(--creme)}
+  footer{border-top:1px solid var(--line);padding-block:28px;color:var(--ink-faint);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap top">
+    <a class="mark" href="/" aria-label="Norte Interior — voltar ao início">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11.5" fill="#c67139"/><path d="M12 5C15.5 8.5 17 11.4 17 13.9 17 16.2 14.8 17.9 12 17.9 9.2 17.9 7 16.2 7 13.9 7 11.4 8.5 8.5 12 5Z" fill="#f5ead8"/></svg>
+      <span>Norte Interior</span>
+    </a>
+    <a class="voltar" href="/">← Voltar ao site</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <span class="rotulo">Privacidade</span>
+  <h1>Política de privacidade</h1>
+  <p class="meta">Última atualização: 19 de outubro de 2026</p>
+
+  <p>Esta política explica quais dados pessoais eu coleto no site <strong>norteinterior.com.br</strong> e nas conversas de agendamento, para que uso, com quem compartilho e como você pode exercer seus direitos, de acordo com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+
+  <section class="resumo" aria-labelledby="resumo-t">
+    <h2 id="resumo-t">Em poucas palavras</h2>
+    <ul>
+      <li>Peço só <strong>seu nome, seu WhatsApp e a leitura que te interessa</strong> — para conversar com você sobre o agendamento.</li>
+      <li>Uso cookies de anúncio (Meta) <strong>só se você aceitar</strong>. O site funciona igual se você recusar.</li>
+      <li><strong>Não vendo</strong> seus dados e não uso o que você me conta numa leitura para nada além da própria leitura.</li>
+      <li>Você pode pedir para ver, corrigir ou apagar seus dados quando quiser, pelo WhatsApp.</li>
+    </ul>
+  </section>
+
+  <h2 id="responsavel">1. Quem é a responsável pelos seus dados</h2>
+  <p>A responsável (controladora) pelo tratamento dos seus dados é <strong>Vitória Florence Cristina Barros</strong>, que atende como <strong>Norte Interior — Tarô com a Vi</strong>, em Cuiabá–MT.</p>
+  <p>Para qualquer assunto sobre seus dados, fale comigo pelo WhatsApp <a href="https://wa.me/5565992591234">(65) 99259-1234</a>.</p>
+
+  <h2 id="dados">2. Quais dados eu coleto</h2>
+  <h3>O que você me informa</h3>
+  <ul>
+    <li><strong>No formulário de agendamento:</strong> seu nome, seu número de WhatsApp e a leitura que te interessa.</li>
+    <li><strong>Na conversa pelo WhatsApp:</strong> as perguntas e o contexto que você escolher compartilhar para a leitura, e o comprovante do Pix (que mostra seu nome e a instituição de pagamento).</li>
+  </ul>
+  <h3>O que é registrado automaticamente</h3>
+  <ul>
+    <li><strong>Origem da visita:</strong> por qual botão você abriu o formulário e de qual campanha ou link você veio (os chamados parâmetros UTM, como "anúncio do Instagram").</li>
+    <li><strong>Cookies de anúncio da Meta — só se você aceitar:</strong> identificadores do seu navegador e o que acontece na página (por exemplo, se você viu os preços ou enviou o formulário). Se você aceitou e enviou o formulário, seu WhatsApp também é enviado à Meta <strong>em formato criptografado (hash)</strong>, que não permite ler o número, para que ela saiba que o anúncio funcionou.</li>
+    <li><strong>Dados técnicos de acesso:</strong> como em qualquer site, o serviço que hospeda as páginas (GitHub) e o que entrega as fontes (Google Fonts) recebem informações técnicas da sua conexão, como o endereço IP e o tipo de navegador.</li>
+  </ul>
+  <h3>Assuntos sensíveis</h3>
+  <p>Eu não peço dados sensíveis (como saúde, religião ou vida sexual). Se você escolher compartilhar algo assim durante uma leitura, uso só para a sua leitura: isso fica na nossa conversa, não registro no meu sistema de agendamentos e não compartilho com ninguém.</p>
+
+  <h2 id="usos">3. Para que uso seus dados e com qual base legal</h2>
+  <div class="tabela" role="region" aria-label="Finalidades e bases legais" tabindex="0">
+    <table>
+      <thead><tr><th>Para quê</th><th>Quais dados</th><th>Base legal (LGPD)</th></tr></thead>
+      <tbody>
+        <tr><td>Falar com você e combinar a leitura</td><td>Nome, WhatsApp, leitura de interesse</td><td>Procedimentos preliminares a um contrato, a seu pedido (art. 7º, V)</td></tr>
+        <tr><td>Fazer a leitura e receber o pagamento</td><td>Conversa, comprovante do Pix</td><td>Execução do contrato (art. 7º, V)</td></tr>
+        <tr><td>Saber quais divulgações trazem pessoas ao site</td><td>Origem da visita (UTM), botão usado</td><td>Legítimo interesse (art. 7º, IX)</td></tr>
+        <tr><td>Medir e melhorar meus anúncios na Meta</td><td>Cookies da Meta, eventos da página, WhatsApp criptografado</td><td>Consentimento (art. 7º, I) — só se você aceitar</td></tr>
+        <tr><td>Cumprir obrigações legais e fiscais</td><td>Registros de pagamento</td><td>Obrigação legal (art. 7º, II)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="compartilhamento">4. Com quem compartilho</h2>
+  <p><strong>Eu não vendo nem alugo seus dados.</strong> Uso alguns serviços para o site e o atendimento funcionarem. Eles tratam os dados em meu nome (são "operadores"), seguindo as políticas de cada um:</p>
+  <div class="tabela" role="region" aria-label="Serviços de terceiros" tabindex="0">
+    <table>
+      <thead><tr><th>Serviço</th><th>Para quê</th><th>Onde ficam os dados</th></tr></thead>
+      <tbody>
+        <tr><td>Supabase</td><td>Guardar os pedidos de agendamento (nome, WhatsApp, leitura, origem)</td><td>Estados Unidos</td></tr>
+        <tr><td>GitHub Pages</td><td>Hospedar o site</td><td>Estados Unidos</td></tr>
+        <tr><td>Google Fonts</td><td>Entregar as fontes do site</td><td>Estados Unidos</td></tr>
+        <tr><td>Meta (Facebook / Instagram)</td><td>Medir anúncios — só com seu consentimento</td><td>Estados Unidos e Irlanda</td></tr>
+        <tr><td>WhatsApp (Meta)</td><td>Nossa conversa e o envio da leitura</td><td>Estados Unidos e outros países</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Também posso compartilhar dados se uma autoridade exigir, nos termos da lei.</p>
+
+  <h2 id="internacional">5. Transferência para outros países</h2>
+  <p>Como os serviços acima têm servidores fora do Brasil, seus dados podem ser armazenados no exterior. Essa transferência acontece com base nas garantias oferecidas por esses provedores e, quando for o caso, no seu consentimento (art. 33 da LGPD).</p>
+
+  <h2 id="retencao">6. Por quanto tempo guardo</h2>
+  <ul>
+    <li><strong>Pedidos de agendamento que não viraram atendimento:</strong> até 12 meses depois do envio; depois, apago.</li>
+    <li><strong>Clientes:</strong> enquanto durar o atendimento e até 12 meses depois do último contato, para dar continuidade se você voltar.</li>
+    <li><strong>Registros de pagamento:</strong> pelo prazo exigido pela legislação fiscal.</li>
+    <li><strong>Dados da Meta:</strong> pelo prazo definido pela própria Meta. Você pode recusar ou retirar o consentimento a qualquer momento.</li>
+  </ul>
+  <p>Você pode pedir para apagar antes, a qualquer momento (veja a seção 8).</p>
+
+  <h2 id="cookies">7. Cookies e armazenamento no navegador</h2>
+  <div class="tabela" role="region" aria-label="Cookies usados" tabindex="0">
+    <table>
+      <thead><tr><th>Nome</th><th>Tipo</th><th>Para quê</th><th>Quando</th></tr></thead>
+      <tbody>
+        <tr><td><code>ni-cookies</code></td><td>Armazenamento local (necessário)</td><td>Lembrar se você aceitou ou recusou os cookies</td><td>Sempre que você escolhe</td></tr>
+        <tr><td><code>_fbp</code>, <code>_fbc</code></td><td>Cookies de anúncio (Meta Pixel)</td><td>Medir se os anúncios trazem pessoas e agendamentos</td><td><strong>Só se você aceitar</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Você pode mudar sua escolha quando quiser:</p>
+  <p><button type="button" class="btn" id="mudar-cookies">Rever minha escolha de cookies</button></p>
+  <p>Também dá para apagar cookies nas configurações do seu navegador.</p>
+
+  <h2 id="direitos">8. Seus direitos</h2>
+  <p>Pela LGPD (art. 18), você pode me pedir, a qualquer momento:</p>
+  <ul>
+    <li>confirmação de que trato seus dados e <strong>acesso</strong> a eles;</li>
+    <li><strong>correção</strong> de dados incompletos ou desatualizados;</li>
+    <li><strong>anonimização, bloqueio ou eliminação</strong> de dados desnecessários ou tratados em desacordo com a lei;</li>
+    <li><strong>portabilidade</strong> dos seus dados;</li>
+    <li><strong>eliminação</strong> dos dados tratados com base no seu consentimento;</li>
+    <li>informação sobre com quem compartilho seus dados;</li>
+    <li>informação sobre a possibilidade de não consentir e as consequências disso;</li>
+    <li><strong>retirada do consentimento</strong> (por exemplo, recusar os cookies de anúncio);</li>
+    <li><strong>oposição</strong> a um tratamento feito com base no legítimo interesse.</li>
+  </ul>
+  <p><strong>Como pedir:</strong> mande uma mensagem no WhatsApp <a href="https://wa.me/5565992591234">(65) 99259-1234</a>. Posso pedir uma confirmação simples de que o número é seu, para proteger seus dados. Respondo em até 15 dias.</p>
+  <p>Se achar que seus direitos não foram respeitados, você também pode reclamar na <a href="https://www.gov.br/anpd/" rel="noopener" target="_blank">Autoridade Nacional de Proteção de Dados (ANPD)</a>.</p>
+
+  <h2 id="seguranca">9. Como protejo seus dados</h2>
+  <ul>
+    <li>O site usa conexão segura (HTTPS).</li>
+    <li>Os pedidos de agendamento ficam num banco de dados com acesso restrito: o site só consegue <em>enviar</em> pedidos, e apenas eu, com login, consigo vê-los.</li>
+    <li>Seu WhatsApp só é enviado à Meta criptografado, e só se você aceitar os cookies.</li>
+  </ul>
+  <p>Nenhum sistema é 100% seguro. Se acontecer um incidente que possa trazer risco a você, aviso você e a ANPD, como a lei exige.</p>
+
+  <h2 id="idade">10. Maiores de 18 anos</h2>
+  <p>As leituras são destinadas a maiores de 18 anos. Não coleto, de propósito, dados de crianças ou adolescentes. Se você souber de um caso assim, me avise para eu apagar.</p>
+
+  <h2 id="encarregado">11. Encarregado de dados</h2>
+  <p>Como agente de tratamento de pequeno porte, estou dispensada de indicar um encarregado de dados (Resolução CD/ANPD nº 2/2022). O canal de contato sobre seus dados é o WhatsApp informado na seção 1.</p>
+
+  <h2 id="alteracoes">12. Mudanças nesta política</h2>
+  <p>Posso atualizar esta política quando mudar algo no site ou no atendimento. A data da última atualização fica no topo da página. Se a mudança for importante, aviso aqui no site.</p>
+
+  <h2 id="lei">13. Lei aplicável</h2>
+  <p>Esta política segue a legislação brasileira, em especial a LGPD.</p>
+</main>
+
+<footer>
+  <div class="wrap">Norte Interior · Tarô com a Vi · <a href="/">norteinterior.com.br</a></div>
+</footer>
+
+<script>
+  // Rótulos das colunas em cada célula (usados no celular, onde a tabela vira cartões)
+  document.querySelectorAll('table').forEach(function(t){
+    var heads = [].map.call(t.querySelectorAll('thead th'), function(th){ return th.textContent; });
+    t.querySelectorAll('tbody tr').forEach(function(tr){
+      [].forEach.call(tr.children, function(td, i){ td.setAttribute('data-label', heads[i] || ''); });
+    });
+  });
+  document.getElementById('mudar-cookies').addEventListener('click', function(){
+    try{ localStorage.removeItem('ni-cookies'); }catch(e){}
+    location.href = '/#cookies-escolha';
+  });
+</script>
+</body>
+</html>

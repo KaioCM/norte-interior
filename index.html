@@ -702,6 +702,7 @@
         <a href="https://instagram.com/norteinterior" target="_blank" rel="noopener">@norteinterior</a>
         <a href="#leituras">Leituras</a>
         <a href="#duvidas">Dúvidas</a>
+        <a href="/privacidade.html">Privacidade</a>
         <a href="#" id="cookie-prefs">Cookies</a>
       </div>
     </div>
@@ -731,9 +732,9 @@ document.querySelectorAll('.js-insta').forEach(function(a){
 
 <!-- ============ AVISO DE COOKIES (LGPD) ============ -->
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
-  <p><strong>Sobre cookies.</strong> Uso cookies para entender como as pessoas chegam até aqui e melhorar meus anúncios. Se preferir, você pode recusar — o site funciona igual.</p>
+  <p><strong>Sobre cookies.</strong> Uso cookies para entender como as pessoas chegam até aqui e melhorar meus anúncios. Se preferir, você pode recusar — o site funciona igual. <a href="/privacidade.html#cookies">Saiba mais</a></p>
   <div class="cookies-actions">
-    <button type="button" class="btn btn-primary" data-cookies="aceito">Entendi</button>
+    <button type="button" class="btn btn-primary" data-cookies="aceito">Aceitar</button>
     <button type="button" class="btn btn-outline" data-cookies="recusado">Recusar</button>
   </div>
 </div>
@@ -751,6 +752,12 @@ document.querySelectorAll('.js-insta').forEach(function(a){
     if(escolha === 'recusado'){
       // Pixel já carregado: para de enviar qualquer evento a partir daqui.
       try{ if(window.fbq){ fbq('consent','revoke'); } }catch(err){}
+      // Apaga os cookies da Meta que já existirem (retirada do consentimento).
+      ['_fbp','_fbc'].forEach(function(n){
+        ['', '; domain=.norteinterior.com.br', '; domain=norteinterior.com.br'].forEach(function(d){
+          document.cookie = n + '=; Max-Age=0; path=/' + d;
+        });
+      });
     } else {
       try{ if(window.fbq){ fbq('consent','grant'); } }catch(err){}
       window.norteLoadPixel();
@@ -799,7 +806,7 @@ document.querySelectorAll('.js-insta').forEach(function(a){
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
       Quero minha leitura
     </button>
-    <p class="consent">Uso seu número para falar com você sobre a leitura e, criptografado, para medir meus anúncios (só se você aceitou os cookies). Nada de spam.</p>
+    <p class="consent">Uso seu número para falar com você sobre a leitura e, criptografado, para medir meus anúncios (só se você aceitou os cookies). Nada de spam. <a href="/privacidade.html" target="_blank" rel="noopener">Política de privacidade</a></p>
   </form>
 
   <!-- Confirmação depois do envio: a pessoa nunca fica sem saída -->
