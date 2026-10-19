@@ -77,7 +77,7 @@
 
   *{box-sizing:border-box}
   [hidden]{display:none!important}
-  html{overflow-x:hidden;scroll-behavior:smooth}
+  html{overflow-x:hidden;overflow-x:clip;scroll-behavior:smooth}   /* clip: evita rolagem lateral sem desligar o topo fixo */
   section[id],[id="topo"]{scroll-margin-top:84px}           /* âncoras não ficam embaixo do topo fixo */
   body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}   /* recorte do iPhone na horizontal */
   a,button,summary{touch-action:manipulation}
@@ -92,7 +92,7 @@
     font-size:16px;
     line-height:1.7;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    overflow-x:hidden;overflow-x:clip;
     max-width:100%;
   }
   img,svg{max-width:100%}
