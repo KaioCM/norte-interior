@@ -333,43 +333,6 @@
     .convite .btn{width:100%}
     .foot-inner{flex-direction:column;align-items:flex-start;gap:14px}
   }
-  /* ===== Modal de agendamento ===== */
-  .modal{border:none;padding:0;background:transparent;width:460px;max-width:92vw;color:var(--tinta)}
-  .modal::backdrop{background:rgba(32,30,29,.55);backdrop-filter:blur(3px)}
-  .modal[open]{animation:modalIn .22s ease}
-  @keyframes modalIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .modal-card{background:var(--creme);border-radius:var(--radius);padding:30px 26px 24px;position:relative;
-    box-shadow:0 30px 80px -28px rgba(32,30,29,.55);max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:16px}
-  .modal-close{position:absolute;top:12px;right:16px;background:transparent;border:none;font-size:1.8rem;line-height:1;color:var(--ink-faint);cursor:pointer;padding:4px}
-  .modal-close:hover{color:var(--terracota-escuro)}
-  .modal-head{display:flex;flex-direction:column;gap:5px;align-items:flex-start;padding-right:26px}
-  .modal-head h2{font-family:var(--display);font-size:1.75rem;line-height:1.1}
-  .modal-head p{color:var(--ink-soft);font-size:.95rem}
-  .field{display:flex;flex-direction:column;gap:7px}
-  .field span,.chips legend{font-family:var(--body);font-weight:600;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terracota-escuro);padding:0}
-  .field input{font-family:var(--body);font-size:1rem;padding:.72em .9em;border:1.5px solid var(--line);border-radius:14px;background:#fffdf9;color:var(--tinta);width:100%}
-  .field input:focus{outline:none;border-color:var(--terracota)}
-  .chips{border:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
-  .chips legend{margin-bottom:3px}
-  .chip-row{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{font-family:var(--body);font-size:.9rem;padding:.52em 1em;border-radius:999px;border:1.5px solid var(--line);background:#fffdf9;color:var(--ink-soft);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
-  .chip:hover{border-color:var(--terracota)}
-  .chip.is-on{background:var(--terracota);border-color:var(--terracota);color:var(--creme)}
-  .chip:focus-visible{outline:2.5px solid var(--terracota-escuro);outline-offset:2px}
-  .hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
-  .modal-submit{width:100%;margin-top:4px}
-  .modal-err{color:#a3341f;font-size:.86rem;margin:0}
-  .consent{font-size:.76rem;color:var(--ink-faint);line-height:1.5;margin:0}
-  .contato-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .field span em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink-faint)}
-  .field input.invalido{border-color:#a3341f}
-  @media(max-width:480px){ .contato-grid{grid-template-columns:1fr} }
-  .modal-ok{text-align:left}
-  .modal-ok .btn{width:100%}
-  .ok-nota{font-size:.88rem;color:var(--ink-soft);line-height:1.5;margin:0}
-  .ok-fechar{background:none;border:none;font-family:var(--body);font-size:.9rem;color:var(--ink-faint);cursor:pointer;padding:4px;align-self:center;text-decoration:underline;text-underline-offset:3px}
-  .ok-fechar:hover{color:var(--terracota-escuro)}
-
   /* ===== Aviso de cookies ===== */
   .cookies{position:fixed;left:20px;bottom:20px;z-index:40;max-width:400px;
     background:var(--creme);border:1px solid var(--line);border-radius:var(--radius-sm);
@@ -380,7 +343,10 @@
   .cookies-actions{display:flex;gap:8px;flex-wrap:wrap}
   .cookies .btn{padding:.55em 1.2em;font-size:.88rem}
   @media(max-width:560px){
-    .cookies{left:12px;right:12px;bottom:12px;max-width:none}
+    .cookies{left:10px;right:10px;bottom:10px;max-width:none;padding:11px 14px;gap:8px;border-radius:14px}
+    .cookies p{font-size:.78rem;line-height:1.4}
+    .cookies .cookies-extra{display:none}
+    .cookies .btn{padding:.42em .9em;font-size:.82rem}
     .cookies-actions .btn{flex:1}
   }
 
@@ -520,7 +486,7 @@
       <a class="link" href="#tarot">O tarô</a>
       <a class="link" href="#como">Como funciona</a>
       <a class="link" href="#duvidas">Dúvidas</a>
-      <a class="btn btn-primary js-agendar" href="#agendar" data-source="header">Agendar</a>
+      <a class="btn btn-primary js-agendar" href="https://wa.me/5565992591234?text=Oi%2C%20Vi%2C%20vim%20pelo%20site%20e%20quero%20uma%20leitura%20de%20tar%C3%B4." target="_blank" rel="noopener" data-leitura="Ainda não decidi" data-source="header">Agendar</a>
     </nav>
   </div>
 </header>
@@ -812,7 +778,7 @@ document.querySelectorAll('.js-insta').forEach(function(a){
 
 <!-- ============ AVISO DE COOKIES (LGPD) ============ -->
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
-  <p><strong>Sobre cookies.</strong> Uso cookies para entender como as pessoas chegam até aqui e melhorar meus anúncios. Se preferir, você pode recusar — o site funciona igual. <a href="/privacidade.html#cookies">Saiba mais</a></p>
+  <p><strong>Sobre cookies.</strong> Uso cookies para entender como as pessoas chegam até aqui e melhorar meus anúncios. <span class="cookies-extra">Se preferir, você pode recusar — o site funciona igual.</span> <a href="/privacidade.html#cookies">Saiba mais</a></p>
   <div class="cookies-actions">
     <button type="button" class="btn btn-primary" data-cookies="aceito">Aceitar</button>
     <button type="button" class="btn btn-outline" data-cookies="recusado">Recusar</button>
@@ -848,248 +814,15 @@ document.querySelectorAll('.js-insta').forEach(function(a){
 })();
 </script>
 
-<!-- ============ MODAL DE AGENDAMENTO ============ -->
-<dialog id="agendar-modal" class="modal" aria-labelledby="modal-title">
-  <form class="modal-card" id="agendar-form" novalidate>
-    <button type="button" class="modal-close" data-close aria-label="Fechar">&times;</button>
-    <div class="modal-head">
-      <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
-      <h2 id="modal-title">Quase lá...</h2>
-      <p>Me passa seu nome e WhatsApp e a gente já se fala por lá.</p>
-    </div>
-
-    <label class="field">
-      <span>Seu nome</span>
-      <input id="f-nome" name="nome" type="text" maxlength="80" autocomplete="given-name" placeholder="Seu nome">
-    </label>
-
-    <fieldset class="chips" data-group="leitura">
-      <legend>Qual leitura você quer?</legend>
-      <div class="chip-row">
-        <button type="button" class="chip" data-value="3 perguntas">3 perguntas · R$25</button>
-        <button type="button" class="chip" data-value="Por tema">Por tema · R$45</button>
-        <button type="button" class="chip" data-value="Leitura geral">Leitura geral · R$60</button>
-        <button type="button" class="chip" data-value="Acompanhamento">Acompanhamento</button>
-        <button type="button" class="chip" data-value="Ainda não decidi">Ainda não sei</button>
-      </div>
-    </fieldset>
-
-    <label class="field">
-      <span>Seu WhatsApp</span>
-      <input id="f-whats" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(65) 99999-9999" maxlength="16">
-    </label>
-
-    <input type="text" class="hp" id="f-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="modal-err" id="f-err" hidden>Preenche seu nome e WhatsApp.</p>
-
-    <button type="submit" class="btn btn-primary modal-submit">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
-      Quero minha leitura
-    </button>
-    <p class="consent">Uso seu número para falar com você sobre a leitura e, criptografado, para medir meus anúncios (só se você aceitou os cookies). Nada de spam. <a href="/privacidade.html" target="_blank" rel="noopener">Política de privacidade</a></p>
-  </form>
-
-  <!-- Confirmação depois do envio: a pessoa nunca fica sem saída -->
-  <div class="modal-card modal-ok" id="agendar-ok" hidden>
-    <button type="button" class="modal-close" data-close aria-label="Fechar">&times;</button>
-    <div class="modal-head">
-      <svg class="gota" width="34" height="34" aria-hidden="true"><use href="#gota"/></svg>
-      <h2 id="ok-titulo">Fechou.</h2>
-      <p>Sua mensagem já tá pronta no meu WhatsApp. Só tocar em <strong>enviar</strong>.</p>
-    </div>
-    <a class="btn btn-primary" id="ok-whats" href="#" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:1.1em;height:1.1em"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.4-.3.5-.2.2-.3.4-.2.6.1.2.6 1 1.3 1.6.9.8 1.6 1 1.9 1.2.2.1.4.1.5-.1.2-.2.6-.7.8-.9.1-.2.3-.2.5-.1.2.1 1.5.7 1.7.8.2.1.4.2.4.3.1.1.1.6-.1 1.2Z"/></svg>
-      Abrir WhatsApp
-    </a>
-    <p class="ok-nota">Não abriu? Relaxa, eu te chamo no <strong id="ok-numero"></strong>. Respondo de segunda a sábado, das 8h às 21h.</p>
-    <button type="button" class="ok-fechar" data-close>Fechar</button>
-  </div>
-</dialog>
-
+<!-- ============ BOTÕES → WHATSAPP ============ -->
 <script>
-(function(){
-  var cfg = window.NORTE || {};
-  var modal = document.getElementById('agendar-modal');
-  var form  = document.getElementById('agendar-form');
-  if(!modal || !form) return;
-  var err = document.getElementById('f-err');
-  var nomeEl = document.getElementById('f-nome');
-  var hpEl = document.getElementById('f-hp');
-  var whatsEl = document.getElementById('f-whats');
-  var okEl = document.getElementById('agendar-ok');
-  var currentSource = 'site';
-  var comecou = false;
-  // Funil no Pixel (sem dado pessoal): abriu → começou → erro → Lead
-  function px(nome, dados){ try{ if(window.fbq) fbq('trackCustom', nome, dados || {}); }catch(e){} }
-
-  // WhatsApp: só dígitos, sem o 55 do país (aceita quem digitar +55)
-  function digitosWhats(v){
-    var d = String(v || '').replace(/\D/g, '');
-    if((d.length === 12 || d.length === 13) && d.indexOf('55') === 0) d = d.slice(2);
-    return d;
-  }
-  // Válido: DDD (11–99) + 8 ou 9 dígitos; celular com 9 dígitos começa com 9
-  function whatsValido(d){
-    if(!/^[1-9][1-9]\d{8,9}$/.test(d)) return false;
-    if(d.length === 11 && d.charAt(2) !== '9') return false;
-    return true;
-  }
-  // Máscara enquanto digita: (65) 99999-9999
-  whatsEl.addEventListener('input', function(){
-    var d = digitosWhats(whatsEl.value).slice(0, 11), f = d;
-    if(d.length > 2) f = '(' + d.slice(0,2) + ') ' + d.slice(2);
-    if(d.length > 7) f = '(' + d.slice(0,2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
-    whatsEl.value = f;
-    whatsEl.classList.remove('invalido');
+// Os botões de agendar levam direto ao WhatsApp, com a mensagem pronta de cada leitura.
+// O toque vira o evento "Contact" no Pixel (o Pixel só carrega com consentimento).
+document.querySelectorAll('.js-agendar').forEach(function(a){
+  a.addEventListener('click', function(){
+    try{ if(window.fbq) fbq('track','Contact',{ content_name: a.getAttribute('data-leitura') || 'Ainda não decidi', origem: a.getAttribute('data-source') || 'site' }); }catch(e){}
   });
-  function mostrarErro(texto, campo, tipo){
-    err.textContent = texto; err.hidden = false;
-    px('ErroAgendar', { erro: tipo });
-    if(campo){ campo.classList.add('invalido'); try{ campo.focus(); }catch(e){} }
-  }
-
-  function utm(){
-    var p = new URLSearchParams(location.search);
-    return { utm_source:p.get('utm_source'), utm_medium:p.get('utm_medium'), utm_campaign:p.get('utm_campaign') };
-  }
-  function sel(group){
-    var el = modal.querySelector('.chips[data-group="'+group+'"]');
-    return el ? (el.dataset.selected || '') : '';
-  }
-  function clearSel(){
-    modal.querySelectorAll('.chip.is-on').forEach(function(c){ c.classList.remove('is-on'); });
-    modal.querySelectorAll('.chips').forEach(function(g){ delete g.dataset.selected; });
-  }
-  function preSelectLeitura(val){
-    if(!val) return;
-    var g = modal.querySelector('.chips[data-group="leitura"]');
-    if(!g) return;
-    g.querySelectorAll('.chip').forEach(function(c){
-      if(c.dataset.value === val){ c.classList.add('is-on'); g.dataset.selected = val; }
-    });
-  }
-  function openModal(pre, source){
-    form.hidden = false; okEl.hidden = true;
-    err.hidden = true; clearSel(); nomeEl.value=''; hpEl.value='';
-    whatsEl.value=''; whatsEl.classList.remove('invalido');
-    currentSource = source || 'site';
-    comecou = false;
-    px('AbriuAgendar', { origem: currentSource });
-    preSelectLeitura(pre || '3 perguntas');   // sem leitura escolhida, começa pela oferta de entrada
-    if(typeof modal.showModal === 'function'){ modal.showModal(); } else { modal.setAttribute('open',''); }
-    setTimeout(function(){ try{ nomeEl.focus(); }catch(e){} }, 60);
-  }
-  function closeModal(){
-    if(typeof modal.close === 'function'){ modal.close(); } else { modal.removeAttribute('open'); }
-  }
-
-  document.querySelectorAll('.js-agendar').forEach(function(el){
-    el.addEventListener('click', function(e){
-      e.preventDefault();
-      openModal(el.getAttribute('data-leitura'), el.getAttribute('data-source'));
-    });
-  });
-
-  function marcarComeco(){
-    if(comecou) return;
-    comecou = true;
-    px('ComecouAgendar', { origem: currentSource });
-  }
-  form.addEventListener('input', marcarComeco);
-
-  modal.addEventListener('click', function(e){
-    if(e.target === modal){ closeModal(); return; }          // clique no backdrop
-    if(e.target.closest('[data-close]')){ closeModal(); return; }
-    var chip = e.target.closest('.chip');
-    if(!chip) return;
-    var group = chip.closest('.chips');
-    marcarComeco();
-    group.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('is-on'); });
-    chip.classList.add('is-on');
-    group.dataset.selected = chip.dataset.value;
-  });
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    if(hpEl.value){ closeModal(); return; }                   // honeypot (bot)
-    var nome = (nomeEl.value || '').trim();
-    var leitura = sel('leitura');
-    if(!nome){ mostrarErro('Me conta como posso te chamar.', nomeEl, 'nome'); return; }
-    if(!leitura){ mostrarErro('Escolhe uma leitura.', null, 'opcoes'); return; }
-    var whats = digitosWhats(whatsEl.value);
-    if(!whatsValido(whats)){ mostrarErro('Confere o WhatsApp: DDD + número, por exemplo (65) 99999-9999.', whatsEl, 'whatsapp'); return; }
-    err.hidden = true;
-
-    var u = utm();
-    var payload = {
-      nome: nome, leitura: leitura,
-      whatsapp: '55' + whats,
-      source: currentSource || 'site',
-      utm_source: u.utm_source, utm_medium: u.utm_medium, utm_campaign: u.utm_campaign
-    };
-
-    // Meta Pixel — conversão de Lead
-    // Detalhes do lead para a Meta (sem nome nem dado pessoal).
-    // Preços espelham os cartões do site — atualize aqui se mudarem.
-    var PRECOS = { '3 perguntas':25, 'Por tema':45, 'Leitura geral':60, 'Acompanhamento':220 };
-    // Nome "teste" (Teste, teste 2…) = teste interno: salva, mas não conta como Lead na Meta
-    var ehTeste = /^teste\b/i.test(nome);
-    try{
-      if(window.fbq && window.NORTE_PIXEL_ID && !ehTeste){
-        // Correspondência avançada: só se a pessoa não recusou cookies.
-        // O Pixel normaliza e criptografa (SHA-256) no navegador antes de enviar.
-        if(window.norteConsent() !== 'recusado'){
-          fbq('init', window.NORTE_PIXEL_ID, { ph: '55' + whats, country: 'br' });
-        }
-        fbq('track','Lead',{
-          content_name: leitura,          // qual leitura
-          value: PRECOS[leitura] || 0,
-          currency: 'BRL'
-        });
-      }
-    }catch(e){}
-
-    // Salva o lead no Supabase (não bloqueia o fluxo)
-    try{
-      if(cfg.SUPABASE_URL && cfg.SUPABASE_KEY){
-        fetch(cfg.SUPABASE_URL + '/rest/v1/norte_leads', {
-          method:'POST',
-          keepalive:true,   // sobrevive à navegação pro WhatsApp
-          headers:{
-            'apikey': cfg.SUPABASE_KEY,
-            'Authorization': 'Bearer ' + cfg.SUPABASE_KEY,
-            'Content-Type':'application/json',
-            'Prefer':'return=minimal'
-          },
-          body: JSON.stringify(payload)
-        }).catch(function(){});
-      }
-    }catch(e){}
-
-    // Abre o WhatsApp já preenchido
-    var QUERO = {
-      '3 perguntas': 'Quero as 3 perguntas (R$25).',
-      'Por tema': 'Quero uma leitura por tema (R$45).',
-      'Leitura geral': 'Quero uma leitura geral (R$60).',
-      'Acompanhamento': 'Quero saber mais do acompanhamento.',
-      'Ainda não decidi': 'Ainda não sei qual leitura, me ajuda a escolher?'
-    };
-    var texto = 'Oi, Vi, sou ' + nome + '. ' + (QUERO[leitura] || 'Quero uma leitura.') + '\n\n(enviado pelo site)';
-    var wa = 'https://wa.me/' + (cfg.WHATSAPP || '') + '?text=' + encodeURIComponent(texto);
-    // Troca o formulário pela confirmação (com botão para abrir de novo),
-    // porque no navegador do Instagram/Facebook o WhatsApp às vezes não abre.
-    document.getElementById('ok-titulo').textContent = 'Fechou, ' + nome.split(/\s+/)[0] + '.';
-    document.getElementById('ok-numero').textContent =
-      '(' + whats.slice(0,2) + ') ' + whats.slice(2, whats.length - 4) + '-' + whats.slice(-4);
-    document.getElementById('ok-whats').href = wa;
-    form.hidden = true; okEl.hidden = false;
-    try{ window.open(wa, '_blank'); }catch(e){}
-  });
-
-  document.getElementById('ok-whats').addEventListener('click', function(){
-    try{ if(window.fbq) fbq('trackCustom', 'WhatsAppReabrir'); }catch(e){}
-  });
-})();
+});
 </script>
 
 </body>
